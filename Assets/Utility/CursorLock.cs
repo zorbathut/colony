@@ -13,7 +13,7 @@ public class CursorLock : MonoBehaviour
             m_LockCursor = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0))
         {
             m_LockCursor = true;
         }
