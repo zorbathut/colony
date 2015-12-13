@@ -235,10 +235,10 @@ MonoBehaviour:
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-  m_UseHeadBob: 0
+  m_UseHeadBob: 1
   m_HeadBob:
-    HorizontalBobRange: .100000001
-    VerticalBobRange: .100000001
+    HorizontalBobRange: .0199999996
+    VerticalBobRange: .0199999996
     Bobcurve:
       serializedVersion: 2
       m_Curve:
@@ -305,11 +305,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_UseHeadBob
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_UseFovKick
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_HeadBob.HorizontalBobRange
+      value: .0199999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_HeadBob.VerticalBobRange
+      value: .0199999996
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
