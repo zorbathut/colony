@@ -5,6 +5,17 @@ using System.Collections.Generic;
 
 public class Manager : MonoBehaviour
 {
+    // singleton
+    static Manager s_Manager = null;
+    public static Manager instance
+    {
+        get
+        {
+            return s_Manager;
+        }
+    }
+
+
     // li'l bit of abstraction here
     class WorldLookup
     {
@@ -40,4 +51,15 @@ public class Manager : MonoBehaviour
     WorldLookup m_WorldLookup = new WorldLookup();
 
     List<Structure> m_StructureList = new List<Structure>();
+
+    public virtual void Awake()
+    {
+        Assert.IsNull(s_Manager);
+        s_Manager = this;
+    }
+
+    public Vector3 ClampToGrid(Vector3 input)
+    {
+        return new Vector3(Mathf.Round(input.x / Constants.GridSize) * Constants.GridSize, input.y, Mathf.Round(input.z / Constants.GridSize) * Constants.GridSize);
+    }
 }

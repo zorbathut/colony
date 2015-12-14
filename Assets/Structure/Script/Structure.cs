@@ -8,6 +8,6 @@ public class Structure : MonoBehaviour
 
     public virtual void OnDrawGizmos()
     {
-        GizmoUtility.DrawSquare(new Vector3(transform.position.x - 1.5f * m_Width, 0f, transform.position.z - 1.5f * m_Length), new Vector3(transform.position.x + 1.5f * m_Width, 0f, transform.position.z + 1.5f * m_Length));
+        GizmoUtility.DrawSquare(new Vector3(transform.position.x - (Constants.GridSize / 2) * m_Width, 0f, transform.position.z - (Constants.GridSize / 2) * m_Length), new Vector3(transform.position.x + (Constants.GridSize / 2) * m_Width, 0f, transform.position.z + (Constants.GridSize / 2) * m_Length));
     }
 }

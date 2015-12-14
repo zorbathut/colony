@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
 public class Builder : MonoBehaviour
@@ -11,7 +12,7 @@ public class Builder : MonoBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Layers.BuildTarget))
         {
             m_TargetCube.gameObject.SetActive(true);
-            m_TargetCube.transform.position = hit.point;
+            m_TargetCube.transform.position = Manager.instance.ClampToGrid(hit.point);
         }
         else
         {
