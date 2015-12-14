@@ -17,38 +17,38 @@ public class Manager : MonoBehaviour
 
 
     // li'l bit of abstraction here
-    class WorldLookup
+    class SparseIntMatrix<T> where T : MonoBehaviour
     {
-        Dictionary<int, Dictionary<int, Structure>> m_Structures = new Dictionary<int, Dictionary<int, Structure>>();
+        Dictionary<int, Dictionary<int, T>> m_Data = new Dictionary<int, Dictionary<int, T>>();
 
-        public Structure Lookup(IntVector2 position)
+        public T Lookup(IntVector2 position)
         {
-            if (!m_Structures.ContainsKey(position.x))
+            if (!m_Data.ContainsKey(position.x))
             {
                 return null;
             }
 
-            if (!m_Structures[position.x].ContainsKey(position.y))
+            if (!m_Data[position.x].ContainsKey(position.y))
             {
                 return null;
             }
 
-            return m_Structures[position.x][position.y];
+            return m_Data[position.x][position.y];
         }
 
-        public void Set(IntVector2 position, Structure structure)
+        public void Set(IntVector2 position, T structure)
         {
             Assert.IsNull(Lookup(position));
 
-            if (!m_Structures.ContainsKey(position.x))
+            if (!m_Data.ContainsKey(position.x))
             {
-                m_Structures[position.x] = new Dictionary<int, Structure>();
+                m_Data[position.x] = new Dictionary<int, T>();
             }
 
-            m_Structures[position.x][position.y] = structure;
+            m_Data[position.x][position.y] = structure;
         }
     }
-    WorldLookup m_WorldLookup = new WorldLookup();
+    SparseIntMatrix<Structure> m_WorldLookup = new SparseIntMatrix<Structure>();
 
     List<Structure> m_StructureList = new List<Structure>();
 
