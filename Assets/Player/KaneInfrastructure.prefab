@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetCube: {fileID: 491324}
+  m_Placeable: {fileID: 11448094, guid: b87c583e87d75244cb771bbacd15e37b, type: 2}
 --- !u!114 &11437394
 MonoBehaviour:
   m_ObjectHideFlags: 1

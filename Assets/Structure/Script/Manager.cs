@@ -21,31 +21,31 @@ public class Manager : MonoBehaviour
     {
         Dictionary<int, Dictionary<int, Structure>> m_Structures = new Dictionary<int, Dictionary<int, Structure>>();
 
-        public Structure Lookup(int x, int y)
+        public Structure Lookup(IntVector2 position)
         {
-            if (!m_Structures.ContainsKey(x))
-            {
-                return null;
-            }
-            
-            if (!m_Structures[x].ContainsKey(y))
+            if (!m_Structures.ContainsKey(position.x))
             {
                 return null;
             }
 
-            return m_Structures[x][y];
+            if (!m_Structures[position.x].ContainsKey(position.y))
+            {
+                return null;
+            }
+
+            return m_Structures[position.x][position.y];
         }
 
-        public void Set(int x, int y, Structure structure)
+        public void Set(IntVector2 position, Structure structure)
         {
-            Assert.IsNull(Lookup(x, y));
+            Assert.IsNull(Lookup(position));
 
-            if (!m_Structures.ContainsKey(x))
+            if (!m_Structures.ContainsKey(position.x))
             {
-                m_Structures[x] = new Dictionary<int, Structure>();
+                m_Structures[position.x] = new Dictionary<int, Structure>();
             }
 
-            m_Structures[x][y] = structure;
+            m_Structures[position.x][position.y] = structure;
         }
     }
     WorldLookup m_WorldLookup = new WorldLookup();
@@ -61,5 +61,26 @@ public class Manager : MonoBehaviour
     public Vector3 ClampToGrid(Vector3 input)
     {
         return new Vector3(Mathf.Round(input.x / Constants.GridSize) * Constants.GridSize, input.y, Mathf.Round(input.z / Constants.GridSize) * Constants.GridSize);
+    }
+
+    public IntVector2 ClampToIndex(Vector3 input)
+    {
+        return new IntVector2(Mathf.RoundToInt(input.x / Constants.GridSize), Mathf.RoundToInt(input.z / Constants.GridSize));
+    }
+
+    public void PlaceAttempt(Structure structure, Vector3 position)
+    {
+        IntVector2 target = ClampToIndex(position);
+        if (m_WorldLookup.Lookup(target))
+        {
+            // already full, nope
+            return;
+        }
+
+        Structure newStructure = Instantiate(structure);
+        newStructure.transform.position = ClampToGrid(position);
+
+        m_WorldLookup.Set(target, newStructure);
+        m_StructureList.Add(newStructure);
     }
 }
