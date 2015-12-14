@@ -198,6 +198,7 @@ public class Manager : MonoBehaviour
             Transform newStructure = Instantiate(prefab);
             newStructure.transform.rotation = rotation;
             newStructure.transform.position = IndexToGrid(new IntVector2(x, z));
+            storage.Set(new IntVector2(x, z), newStructure.gameObject);
         }
     }
 }
