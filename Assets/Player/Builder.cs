@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Builder : MonoBehaviour
 {
     [SerializeField] Transform m_TargetCube;
-    [SerializeField] Structure m_Placeable;
+    [SerializeField] List<Structure> m_Placeable;
 
     public virtual void Update()
     {
         // Test placement
         // Just yanking the current cursor state out of the target cube; ugly, but viable
-        if (m_TargetCube.gameObject.activeSelf && Input.GetMouseButtonDown(0))
+        if (m_TargetCube.gameObject.activeSelf && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0)
         {
             // Place that thing!
-            Manager.instance.PlaceAttempt(m_Placeable, m_TargetCube.transform.position);
+            Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetCube.transform.position);
+            m_Placeable.RemoveAt(0);
         }
     }
 
