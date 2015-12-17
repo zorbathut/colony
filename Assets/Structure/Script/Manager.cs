@@ -125,7 +125,7 @@ public class Manager : MonoBehaviour
         return new Vector3(input.x * Constants.GridSize, 0, input.z * Constants.GridSize);
     }
 
-    public void PlaceAttempt(Structure structure, Vector3 position)
+    public bool PlaceAttempt(Structure structure, Vector3 position)
     {
         IntVector2 target = ClampToIndex(position);
 
@@ -136,7 +136,8 @@ public class Manager : MonoBehaviour
                 if (m_WorldLookup.Lookup(target.x + x, target.z + z))
                 {
                     // already full, nope
-                    return;
+                    // TODO: print error message
+                    return false;
                 }
             }
         }
@@ -167,6 +168,8 @@ public class Manager : MonoBehaviour
                 RecalculateDoor(x, z, m_Doors[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
             }
         }
+
+        return true;
     }
     
     void RecalculatePillar(int x, int z)

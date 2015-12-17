@@ -15,8 +15,10 @@ public class Builder : MonoBehaviour
         if (m_TargetCube.gameObject.activeSelf && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0)
         {
             // Place that thing!
-            Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetCube.transform.position);
-            m_Placeable.RemoveAt(0);
+            if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetCube.transform.position))
+            {
+                m_Placeable.RemoveAt(0);
+            }
         }
     }
 
