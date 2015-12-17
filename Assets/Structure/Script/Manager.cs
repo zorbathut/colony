@@ -98,7 +98,21 @@ public class Manager : MonoBehaviour
 
     public Vector3 ClampToGrid(Vector3 input)
     {
-        return new Vector3(Mathf.Round(input.x / Constants.GridSize) * Constants.GridSize, input.y, Mathf.Round(input.z / Constants.GridSize) * Constants.GridSize);
+        Vector3 result = new Vector3(Mathf.Round(input.x / Constants.GridSize) * Constants.GridSize, input.y + 10, Mathf.Round(input.z / Constants.GridSize) * Constants.GridSize);
+
+        // Find the y position of the real ground
+        RaycastHit hit;
+        if (Physics.Raycast(result, Vector3.down, out hit, 20, 1 << Layers.BuildTarget))
+        {
+            result.y = hit.point.y;
+        }
+        else
+        {
+            // well okay, this is going to be weird
+            result.y = input.y;
+        }
+
+        return result;
     }
 
     public IntVector2 ClampToIndex(Vector3 input)

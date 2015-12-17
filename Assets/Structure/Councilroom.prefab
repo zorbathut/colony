@@ -39,8 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b857282765243943973d01a59a9b489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Width: 1
-  m_Length: 1
+  m_Width: 2
+  m_Length: 2
   m_Walled: 1
   m_DoorCreator: 1
 --- !u!1001 &100100000
@@ -57,6 +57,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_DoorCreator
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Width
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Length
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
