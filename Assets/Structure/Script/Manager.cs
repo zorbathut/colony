@@ -56,6 +56,11 @@ public class Manager : MonoBehaviour
             m_Data[position.x][position.y] = structure;
         }
 
+        public void Set(int x, int z, T structure)
+        {
+            Set(new IntVector2(x, z), structure);
+        }
+
         public void Clear(IntVector2 position)
         {
             if (Lookup(position))
@@ -109,16 +114,30 @@ public class Manager : MonoBehaviour
     public void PlaceAttempt(Structure structure, Vector3 position)
     {
         IntVector2 target = ClampToIndex(position);
-        if (m_WorldLookup.Lookup(target))
+
+        for (int x = 0; x < structure.GetWidth(); ++x)
         {
-            // already full, nope
-            return;
+            for (int z = 0; z < structure.GetLength(); ++z)
+            {
+                if (m_WorldLookup.Lookup(target.x + x, target.y + z))
+                {
+                    // already full, nope
+                    return;
+                }
+            }
         }
 
         Structure newStructure = Instantiate(structure);
         newStructure.transform.position = ClampToGrid(position);
 
-        m_WorldLookup.Set(target, newStructure);
+        for (int x = 0; x < structure.GetWidth(); ++x)
+        {
+            for (int z = 0; z < structure.GetLength(); ++z)
+            {
+                m_WorldLookup.Set(target.x + x, target.y + z, newStructure);
+            }
+        }
+
         m_StructureList.Add(newStructure);
 
         // reprocess our structural elements
