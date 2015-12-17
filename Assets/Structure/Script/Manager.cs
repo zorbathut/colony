@@ -41,7 +41,7 @@ public class Manager : MonoBehaviour
 
         public T Lookup(IntVector2 position)
         {
-            return Lookup(position.x, position.y);
+            return Lookup(position.x, position.z);
         }
 
         public void Set(IntVector2 position, T structure)
@@ -53,7 +53,7 @@ public class Manager : MonoBehaviour
                 m_Data[position.x] = new Dictionary<int, T>();
             }
 
-            m_Data[position.x][position.y] = structure;
+            m_Data[position.x][position.z] = structure;
         }
 
         public void Set(int x, int z, T structure)
@@ -65,7 +65,7 @@ public class Manager : MonoBehaviour
         {
             if (Lookup(position))
             {
-                m_Data[position.x][position.y] = null;
+                m_Data[position.x][position.z] = null;
             }
             else
             {
@@ -108,7 +108,7 @@ public class Manager : MonoBehaviour
 
     public Vector3 IndexToGrid(IntVector2 input)
     {
-        return new Vector3(input.x * Constants.GridSize, 0, input.y * Constants.GridSize);
+        return new Vector3(input.x * Constants.GridSize, 0, input.z * Constants.GridSize);
     }
 
     public void PlaceAttempt(Structure structure, Vector3 position)
@@ -119,7 +119,7 @@ public class Manager : MonoBehaviour
         {
             for (int z = 0; z < structure.GetLength(); ++z)
             {
-                if (m_WorldLookup.Lookup(target.x + x, target.y + z))
+                if (m_WorldLookup.Lookup(target.x + x, target.z + z))
                 {
                     // already full, nope
                     return;
@@ -134,7 +134,7 @@ public class Manager : MonoBehaviour
         {
             for (int z = 0; z < structure.GetLength(); ++z)
             {
-                m_WorldLookup.Set(target.x + x, target.y + z, newStructure);
+                m_WorldLookup.Set(target.x + x, target.z + z, newStructure);
             }
         }
 
@@ -143,7 +143,7 @@ public class Manager : MonoBehaviour
         // reprocess our structural elements
         for (int x = target.x; x < target.x + newStructure.GetWidth() + 1; ++x)
         {
-            for (int z = target.y; z < target.y + newStructure.GetLength() + 1; ++z)
+            for (int z = target.z; z < target.z + newStructure.GetLength() + 1; ++z)
             {
                 // there is just no clean way to do this
                 RecalculatePillar(x, z);
