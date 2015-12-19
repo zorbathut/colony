@@ -8,14 +8,16 @@ public class Builder : MonoBehaviour
     [SerializeField] Transform m_TargetCube;
     [SerializeField] List<Structure> m_Placeable;
 
+    Vector3 m_TargetPosition;
+    bool m_TargetPositionValid = false;
+
     public virtual void Update()
     {
         // Test placement
-        // Just yanking the current cursor state out of the target cube; ugly, but viable
-        if (m_TargetCube.gameObject.activeSelf && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0)
+        if (m_TargetPositionValid && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0)
         {
             // Place that thing!
-            if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetCube.transform.position))
+            if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetPosition))
             {
                 m_Placeable.RemoveAt(0);
             }
@@ -35,23 +37,27 @@ public class Builder : MonoBehaviour
 
         // Move highlight box, figure out what the user's pointing at
         RaycastHit hit;
-        Vector3 position = new Vector3();
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1 << Layers.BuildTarget))
         {
+            // Stash these away; we can't retrieve them from the cube later on because we have to munge the cube data
+            m_TargetPositionValid = true;
+            m_TargetPosition = Manager.instance.ClampToGrid(hit.point);
+
             m_TargetCube.gameObject.SetActive(true);
 
             m_TargetCube.localScale = new Vector3(nextStructure.GetWidth(), 1, nextStructure.GetLength()) * 3; // magic number to make the cube look visually good
 
-            position = Manager.instance.ClampToGrid(hit.point);
+            Vector3 cubePosition = m_TargetPosition;
 
             // shift cube to be centered relative to the object's width and length
-            position.x = position.x + (nextStructure.GetWidth() - 1) * Constants.GridSize / 2;
-            position.z = position.z + (nextStructure.GetLength() - 1) * Constants.GridSize / 2;
+            cubePosition.x = cubePosition.x + (nextStructure.GetWidth() - 1) * Constants.GridSize / 2;
+            cubePosition.z = cubePosition.z + (nextStructure.GetLength() - 1) * Constants.GridSize / 2;
 
-            m_TargetCube.transform.position = position;
+            m_TargetCube.transform.position = cubePosition;
         }
         else
         {
+            m_TargetPositionValid = false;
             m_TargetCube.gameObject.SetActive(false);
         }
     }
