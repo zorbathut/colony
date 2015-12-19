@@ -143,7 +143,7 @@ public class Manager : MonoBehaviour
         }
 
         Structure newStructure = Instantiate(structure);
-        newStructure.transform.position = ClampToGrid(position);
+        newStructure.transform.position = ClampToGrid(position) + new Vector3((newStructure.GetWidth() - 1) * Constants.GridSize / 2, 0, (newStructure.GetLength() - 1) * Constants.GridSize / 2);
 
         for (int x = 0; x < structure.GetWidth(); ++x)
         {
