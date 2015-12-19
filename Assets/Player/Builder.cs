@@ -37,7 +37,7 @@ public class Builder : MonoBehaviour
 
         // Move highlight box, figure out what the user's pointing at
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1 << Layers.BuildTarget))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, 1 << Layers.BuildTarget))
         {
             // Stash these away; we can't retrieve them from the cube later on because we have to munge the cube data
             m_TargetPositionValid = true;
