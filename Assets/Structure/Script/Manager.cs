@@ -171,6 +171,11 @@ public class Manager : MonoBehaviour
 
         return true;
     }
+
+    public Structure GetObject(Vector3 position)
+    {
+        return m_WorldLookup.Lookup(ClampToIndex(position));
+    }
     
     void RecalculatePillar(int x, int z)
     {

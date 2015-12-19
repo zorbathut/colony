@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class Builder : MonoBehaviour
 {
-    [SerializeField] Transform m_TargetCube;
+    [SerializeField] Transform m_PlacementCube;
+    [SerializeField] Transform m_DestructionCube;
     [SerializeField] List<Structure> m_Placeable;
 
     Vector3 m_TargetPosition;
@@ -26,14 +27,10 @@ public class Builder : MonoBehaviour
 
     public virtual void FixedUpdate()
     {
-        Structure nextStructure = GetNextStructure();
-
-        if (!nextStructure)
-        {
-            // no next structure, no box
-            m_TargetCube.gameObject.SetActive(false);
-            return;
-        }
+        // Clear to defaults
+        m_TargetPositionValid = false;
+        m_PlacementCube.gameObject.SetActive(false);
+        m_DestructionCube.gameObject.SetActive(false);
 
         // Move highlight box, figure out what the user's pointing at
         RaycastHit hit;
@@ -43,22 +40,34 @@ public class Builder : MonoBehaviour
             m_TargetPositionValid = true;
             m_TargetPosition = Manager.instance.ClampToGrid(hit.point);
 
-            m_TargetCube.gameObject.SetActive(true);
+            // Figure out what kind of display cube we should be using
+            Structure targetStructure = Manager.instance.GetObject(m_TargetPosition);
+            Structure nextStructure = GetNextStructure();
 
-            m_TargetCube.localScale = new Vector3(nextStructure.GetWidth(), 1, nextStructure.GetLength()) * 3; // magic number to make the cube look visually good
+            if (targetStructure)
+            {
+                // removal
+                m_DestructionCube.gameObject.SetActive(true);
 
-            Vector3 cubePosition = m_TargetPosition;
+                m_DestructionCube.localScale = new Vector3(targetStructure.GetWidth(), 1, targetStructure.GetLength()) * 3; // magic number to make the cube look visually good
 
-            // shift cube to be centered relative to the object's width and length
-            cubePosition.x = cubePosition.x + (nextStructure.GetWidth() - 1) * Constants.GridSize / 2;
-            cubePosition.z = cubePosition.z + (nextStructure.GetLength() - 1) * Constants.GridSize / 2;
+                m_DestructionCube.transform.position = targetStructure.transform.position;
+            }
+            else if (nextStructure)
+            {
+                // placement
+                m_PlacementCube.gameObject.SetActive(true);
 
-            m_TargetCube.transform.position = cubePosition;
-        }
-        else
-        {
-            m_TargetPositionValid = false;
-            m_TargetCube.gameObject.SetActive(false);
+                m_PlacementCube.localScale = new Vector3(nextStructure.GetWidth(), 1, nextStructure.GetLength()) * 3; // magic number to make the cube look visually good
+
+                Vector3 cubePosition = m_TargetPosition;
+
+                // shift cube to be centered relative to the object's width and length
+                cubePosition.x = cubePosition.x + (nextStructure.GetWidth() - 1) * Constants.GridSize / 2;
+                cubePosition.z = cubePosition.z + (nextStructure.GetLength() - 1) * Constants.GridSize / 2;
+
+                m_PlacementCube.transform.position = cubePosition;
+            }
         }
     }
 
