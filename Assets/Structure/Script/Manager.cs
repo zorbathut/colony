@@ -24,19 +24,19 @@ public class Manager : MonoBehaviour
     {
         Dictionary<int, Dictionary<int, T>> m_Data = new Dictionary<int, Dictionary<int, T>>();
 
-        public T Lookup(int x, int y)
+        public T Lookup(int x, int z)
         {
             if (!m_Data.ContainsKey(x))
             {
                 return null;
             }
 
-            if (!m_Data[x].ContainsKey(y))
+            if (!m_Data[x].ContainsKey(z))
             {
                 return null;
             }
 
-            return m_Data[x][y];
+            return m_Data[x][z];
         }
 
         public T Lookup(IntVector2 position)
