@@ -62,6 +62,7 @@ public class Builder : MonoBehaviour
         
         if (errorString != null)
         {
+            MainUI.instance.GetPopupText().DisplayText(errorString, Color.white);
             Debug.Log(errorString);
         }
     }
