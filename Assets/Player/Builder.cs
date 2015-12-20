@@ -14,24 +14,55 @@ public class Builder : MonoBehaviour
 
     public virtual void Update()
     {
+        string errorString = null;
+
         // Test removal
-        if (m_TargetPositionValid && Input.GetMouseButtonDown(1) && Manager.instance.GetObject(m_TargetPosition))
+        if (Input.GetMouseButtonDown(1))
         {
-            Structure removed = Manager.instance.Remove(m_TargetPosition);
-            if (removed)
+            if (!m_TargetPositionValid)
             {
-                m_Placeable.Insert(0, removed);
+                errorString = "You can't remove the sky.";
+            }
+            else if (!Manager.instance.GetObject(m_TargetPosition))
+            {
+                errorString = "Nothing is there to remove.";
+            }
+            else
+            {
+                Structure removed = Manager.instance.Remove(m_TargetPosition, out errorString);
+                if (removed)
+                {
+                    // Success!
+                    m_Placeable.Insert(0, removed);
+                }
             }
         }
 
         // Test placement
-        if (m_TargetPositionValid && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0 && !Manager.instance.GetObject(m_TargetPosition))
+        if (Input.GetMouseButtonDown(0))
         {
-            // Place that thing!
-            if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetPosition))
+            if (!m_TargetPositionValid)
             {
+                errorString = "Only the gods can build in the sky.";
+            }
+            else if (m_Placeable.Count == 0)
+            {
+                errorString = "You don't have anything left to place.";
+            }
+            else if (Manager.instance.GetObject(m_TargetPosition))
+            {
+                errorString = "A building must not be placed on another building.";
+            }
+            else if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetPosition, out errorString))
+            {
+                // Success!
                 m_Placeable.RemoveAt(0);
             }
+        }
+        
+        if (errorString != null)
+        {
+            Debug.Log(errorString);
         }
     }
 

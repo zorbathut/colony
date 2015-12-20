@@ -32,7 +32,7 @@ GameObject:
   - 82: {fileID: 8264932}
   m_Layer: 0
   m_Name: Kane
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -130,8 +130,10 @@ public class Manager : MonoBehaviour
         return new Vector3(input.x * Constants.GridSize, 0, input.z * Constants.GridSize);
     }
 
-    public bool PlaceAttempt(Structure structure, Vector3 position)
+    public bool PlaceAttempt(Structure structure, Vector3 position, out string errorMessage)
     {
+        errorMessage = null;
+
         IntVector2 target = ClampToIndex(position);
 
         for (int x = 0; x < structure.GetWidth(); ++x)
@@ -140,8 +142,7 @@ public class Manager : MonoBehaviour
             {
                 if (m_WorldLookup.Lookup(target.x + x, target.z + z))
                 {
-                    // already full, nope
-                    // TODO: print error message
+                    errorMessage = "That building would overlap another building.";
                     return false;
                 }
             }
@@ -168,12 +169,14 @@ public class Manager : MonoBehaviour
     }
 
     // returns removed structure
-    public Structure Remove(Vector3 position)
+    public Structure Remove(Vector3 position, out string errorMessage)
     {
+        errorMessage = null;
+
         Structure removalTarget = m_WorldLookup.Lookup(ClampToIndex(position));
         if (!removalTarget)
         {
-            // nothing to remove
+            errorMessage = "There's nothing to remove.";
             return null;
         }
 
