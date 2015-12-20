@@ -135,6 +135,7 @@ public class Manager : MonoBehaviour
         errorMessage = null;
 
         IntVector2 target = ClampToIndex(position);
+        IntVector2 playerTarget = ClampToIndex(GameObject.FindGameObjectWithTag(Tags.Player).transform.position);
 
         for (int x = 0; x < structure.GetWidth(); ++x)
         {
@@ -143,6 +144,12 @@ public class Manager : MonoBehaviour
                 if (m_WorldLookup.Lookup(target.x + x, target.z + z))
                 {
                     errorMessage = "That building would overlap another building.";
+                    return false;
+                }
+
+                if (playerTarget.x == target.x + x && playerTarget.z == target.z + z)
+                {
+                    errorMessage = "Standing in a construction zone is dangerous.";
                     return false;
                 }
             }
