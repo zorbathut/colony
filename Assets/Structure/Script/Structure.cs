@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
 public class Structure : MonoBehaviour
@@ -8,6 +9,28 @@ public class Structure : MonoBehaviour
 
     [SerializeField] bool m_Walled = false;
     [SerializeField] bool m_DoorCreator = false;
+
+    [SerializeField, HideInInspector] Structure m_Template = null;
+    [SerializeField, HideInInspector] IntVector2 m_Origin;
+
+    public void Initialize(Structure template, IntVector2 origin)
+    {
+        Assert.IsNull(m_Template);
+        Assert.IsNotNull(template);
+
+        m_Template = template;
+        m_Origin = origin;
+    }
+
+    public Structure GetTemplate()
+    {
+        return m_Template;
+    }
+
+    public IntVector2 GetOrigin()
+    {
+        return m_Origin;
+    }
 
     public virtual void OnDrawGizmos()
     {

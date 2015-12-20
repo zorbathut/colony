@@ -14,8 +14,18 @@ public class Builder : MonoBehaviour
 
     public virtual void Update()
     {
+        // Test removal
+        if (m_TargetPositionValid && Input.GetMouseButtonDown(1) && Manager.instance.GetObject(m_TargetPosition))
+        {
+            Structure removed = Manager.instance.Remove(m_TargetPosition);
+            if (removed)
+            {
+                m_Placeable.Insert(0, removed);
+            }
+        }
+
         // Test placement
-        if (m_TargetPositionValid && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0)
+        if (m_TargetPositionValid && Input.GetMouseButtonDown(0) && m_Placeable.Count != 0 && !Manager.instance.GetObject(m_TargetPosition))
         {
             // Place that thing!
             if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetPosition))

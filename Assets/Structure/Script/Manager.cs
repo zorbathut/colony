@@ -72,6 +72,11 @@ public class Manager : MonoBehaviour
                 Assert.IsNotNull(Lookup(position));
             }
         }
+
+        public void Clear(int x, int z)
+        {
+            Clear(new IntVector2(x, z));
+        }
     }
     SparseIntMatrix<Structure> m_WorldLookup = new SparseIntMatrix<Structure>();
 
@@ -143,6 +148,7 @@ public class Manager : MonoBehaviour
         }
 
         Structure newStructure = Instantiate(structure);
+        newStructure.Initialize(structure, target);
         newStructure.transform.position = ClampToGrid(position) + new Vector3((newStructure.GetWidth() - 1) * Constants.GridSize / 2, 0, (newStructure.GetLength() - 1) * Constants.GridSize / 2);
 
         for (int x = 0; x < structure.GetWidth(); ++x)
@@ -156,9 +162,54 @@ public class Manager : MonoBehaviour
         m_StructureList.Add(newStructure);
 
         // reprocess our structural elements
-        for (int x = target.x; x < target.x + newStructure.GetWidth() + 1; ++x)
+        ReprocessStructural(target, newStructure);
+
+        return true;
+    }
+
+    // returns removed structure
+    public Structure Remove(Vector3 position)
+    {
+        Structure removalTarget = m_WorldLookup.Lookup(ClampToIndex(position));
+        if (!removalTarget)
         {
-            for (int z = target.z; z < target.z + newStructure.GetLength() + 1; ++z)
+            // nothing to remove
+            return null;
+        }
+
+        IntVector2 target = removalTarget.GetOrigin();
+
+        for (int x = 0; x < removalTarget.GetWidth(); ++x)
+        {
+            for (int z = 0; z < removalTarget.GetLength(); ++z)
+            {
+                Assert.IsTrue(m_WorldLookup.Lookup(target.x + x, target.z + z) == removalTarget);
+                if (m_WorldLookup.Lookup(target.x + x, target.z + z) == removalTarget)
+                {
+                    m_WorldLookup.Clear(target.x + x, target.z + z);
+                }
+            }
+        }
+
+        ReprocessStructural(target, removalTarget);
+
+        Structure template = removalTarget.GetTemplate();
+
+        Destroy(removalTarget.gameObject);
+
+        return template;
+    }
+
+    public Structure GetObject(Vector3 position)
+    {
+        return m_WorldLookup.Lookup(ClampToIndex(position));
+    }
+    
+    void ReprocessStructural(IntVector2 origin, Structure structure)
+    {
+        for (int x = origin.x; x < origin.x + structure.GetWidth() + 1; ++x)
+        {
+            for (int z = origin.z; z < origin.z + structure.GetLength() + 1; ++z)
             {
                 // there is just no clean way to do this
                 RecalculatePillar(x, z);
@@ -168,15 +219,8 @@ public class Manager : MonoBehaviour
                 RecalculateDoor(x, z, m_Doors[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
             }
         }
-
-        return true;
     }
 
-    public Structure GetObject(Vector3 position)
-    {
-        return m_WorldLookup.Lookup(ClampToIndex(position));
-    }
-    
     void RecalculatePillar(int x, int z)
     {
         int[] dx = {-1, -1, 0, 0};
