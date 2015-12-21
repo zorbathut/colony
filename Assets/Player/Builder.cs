@@ -5,9 +5,19 @@ using System.Collections.Generic;
 
 public class Builder : MonoBehaviour
 {
+    [System.Serializable]
+    public class Placeable
+    {
+        public Structure template;
+        public bool infinite;
+        public int remaining;
+    }
+
     [SerializeField] Transform m_PlacementCube;
     [SerializeField] Transform m_DestructionCube;
-    [SerializeField] List<Structure> m_Placeable;
+
+    [SerializeField, HideInInspector] List<Placeable> m_Placeable = new List<Placeable>();
+    [SerializeField, HideInInspector] int m_PlaceableIndex;
 
     Vector3 m_TargetPosition;
     bool m_TargetPositionValid = false;
@@ -15,6 +25,17 @@ public class Builder : MonoBehaviour
     public virtual void Update()
     {
         string errorString = null;
+
+        // Change index
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            --m_PlaceableIndex;
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            ++m_PlaceableIndex;
+        }
+        m_PlaceableIndex = Mathf.Clamp(m_PlaceableIndex, 0, m_Placeable.Count - 1); // happens every frame just in case we remove things from placeable
 
         // Test removal
         if (Input.GetMouseButtonDown(1))
@@ -33,7 +54,12 @@ public class Builder : MonoBehaviour
                 if (removed)
                 {
                     // Success!
-                    m_Placeable.Insert(0, removed);
+                    Placeable placeable = FindPlaceableByTemplate(removed);
+                    Assert.IsNotNull(placeable);
+                    if (placeable != null)
+                    {
+                        ++placeable.remaining;
+                    }
                 }
             }
         }
@@ -41,22 +67,27 @@ public class Builder : MonoBehaviour
         // Test placement
         if (Input.GetMouseButtonDown(0))
         {
+            Placeable placeable = GetCurrentPlaceable();
             if (!m_TargetPositionValid)
             {
                 errorString = "Only the gods can build in the sky.";
             }
-            else if (m_Placeable.Count == 0)
+            else if (placeable == null)
             {
                 errorString = "You don't have anything left to place.";
+            }
+            else if (!placeable.infinite && placeable.remaining <= 0)
+            {
+                errorString = "You don't have any of those left to place.";
             }
             else if (Manager.instance.GetObject(m_TargetPosition))
             {
                 errorString = "A building must not be placed on another building.";
             }
-            else if (Manager.instance.PlaceAttempt(m_Placeable[0], m_TargetPosition, out errorString))
+            else if (Manager.instance.PlaceAttempt(placeable.template, m_TargetPosition, out errorString))
             {
                 // Success!
-                m_Placeable.RemoveAt(0);
+                --placeable.remaining;
             }
         }
         
@@ -84,7 +115,7 @@ public class Builder : MonoBehaviour
 
             // Figure out what kind of display cube we should be using
             Structure targetStructure = Manager.instance.GetObject(m_TargetPosition);
-            Structure nextStructure = GetNextStructure();
+            Structure nextStructure = GetCurrentPlaceable() != null ? GetCurrentPlaceable().template : null;
 
             if (targetStructure)
             {
@@ -113,15 +144,50 @@ public class Builder : MonoBehaviour
         }
     }
 
-    Structure GetNextStructure()
+    public Placeable GetCurrentPlaceable()
     {
-        if (m_Placeable.Count != 0)
-        {
-            return m_Placeable[0];
-        }
-        else
+        if (m_Placeable.Count == 0)
         {
             return null;
         }
+
+        if (m_PlaceableIndex < 0 || m_PlaceableIndex >= m_Placeable.Count)
+        {
+            return null;
+        }
+
+        return m_Placeable[m_PlaceableIndex];
+    }
+
+    public List<Placeable> GetPlaceables()
+    {
+        return m_Placeable;
+    }
+
+    public Placeable FindPlaceableByTemplate(Structure structure)
+    {
+        foreach (Placeable placeable in m_Placeable)
+        {
+            if (placeable.template == structure)
+            {
+                return placeable;
+            }
+        }
+
+        return null;
+    }
+
+    public int GetPlaceableIndex()
+    {
+        return m_PlaceableIndex;
+    }
+
+    public void AddStructure(Structure structure)
+    {
+        Placeable placeable = new Placeable();
+        placeable.template = structure;
+        placeable.infinite = true;
+        placeable.remaining = 0;
+        m_Placeable.Add(placeable);
     }
 }
