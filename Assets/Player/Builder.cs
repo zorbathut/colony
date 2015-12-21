@@ -11,6 +11,7 @@ public class Builder : MonoBehaviour
         public Structure template;
         public bool infinite;
         public int remaining;
+        public bool active;
     }
 
     [SerializeField] Transform m_PlacementCube;
@@ -36,6 +37,11 @@ public class Builder : MonoBehaviour
             ++m_PlaceableIndex;
         }
         m_PlaceableIndex = Mathf.Clamp(m_PlaceableIndex, 0, m_Placeable.Count - 1); // happens every frame just in case we remove things from placeable
+
+        for (int i = 0; i < m_Placeable.Count; ++i)
+        {
+            m_Placeable[i].active = (i == m_PlaceableIndex);
+        }
 
         // Test removal
         if (Input.GetMouseButtonDown(1))
@@ -189,5 +195,7 @@ public class Builder : MonoBehaviour
         placeable.infinite = true;
         placeable.remaining = 0;
         m_Placeable.Add(placeable);
+
+        GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().UpdateStructureList();
     }
 }
