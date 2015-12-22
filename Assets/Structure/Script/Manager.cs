@@ -5,7 +5,10 @@ using System.Collections.Generic;
 
 public class Manager : MonoBehaviour
 {
-    // singleton
+    /////////////////////////////////////////////
+    // SINGLETON
+    //
+
     static Manager s_Manager = null;
     public static Manager instance
     {
@@ -14,6 +17,10 @@ public class Manager : MonoBehaviour
             return s_Manager;
         }
     }
+
+    /////////////////////////////////////////////
+    // VARIABLES
+    //
 
     [SerializeField] Transform m_Pillar;
     [SerializeField] Transform m_Wall;
@@ -95,11 +102,19 @@ public class Manager : MonoBehaviour
     SparseIntMatrix<GameObject>[] m_Walls = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
     SparseIntMatrix<GameObject>[] m_Doors = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
 
+    /////////////////////////////////////////////
+    // INFRASTRUCTURE
+    //
+
     public virtual void Awake()
     {
         Assert.IsNull(s_Manager);
         s_Manager = this;
     }
+
+    /////////////////////////////////////////////
+    // COORDINATES
+    //
 
     public Vector3 ClampToGrid(Vector3 input)
     {
@@ -129,6 +144,10 @@ public class Manager : MonoBehaviour
     {
         return new Vector3(input.x * Constants.GridSize, 0, input.z * Constants.GridSize);
     }
+
+    /////////////////////////////////////////////
+    // STRUCTURE PLACEMENT
+    //
 
     public bool PlaceAttempt(Structure structure, Vector3 position, out string errorMessage)
     {
@@ -214,6 +233,10 @@ public class Manager : MonoBehaviour
     {
         return m_WorldLookup.Lookup(ClampToIndex(position));
     }
+
+    /////////////////////////////////////////////
+    // INTERNAL (STRUCTURAL)
+    //
     
     void ReprocessStructural(IntVector2 origin, Structure structure)
     {
