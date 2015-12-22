@@ -88,7 +88,6 @@ public class Manager : MonoBehaviour
     SparseIntMatrix<Structure> m_WorldLookup = new SparseIntMatrix<Structure>();
 
     List<Structure> m_StructureList = new List<Structure>();
-
     
     // The various dynamically-built structural elements
     // Each of them is positioned at the top-left of the index, when appropriate; pillars at the top-left corner, walls and doors at either the top edge or the left edge
@@ -101,6 +100,9 @@ public class Manager : MonoBehaviour
     SparseIntMatrix<GameObject> m_Pillars = new SparseIntMatrix<GameObject>();
     SparseIntMatrix<GameObject>[] m_Walls = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
     SparseIntMatrix<GameObject>[] m_Doors = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
+
+    // Quests
+    List<Quest> m_Quests = new List<Quest>();
 
     /////////////////////////////////////////////
     // INFRASTRUCTURE
@@ -232,6 +234,41 @@ public class Manager : MonoBehaviour
     public Structure GetObject(Vector3 position)
     {
         return m_WorldLookup.Lookup(ClampToIndex(position));
+    }
+
+    public Structure GetStructureOfType(Structure structure)
+    {
+        foreach (Structure testStructure in m_StructureList)
+        {
+            if (testStructure.GetTemplate() == structure)
+            {
+                return testStructure;
+            }
+        }
+
+        return null;
+    }
+
+    /////////////////////////////////////////////
+    // QUESTS
+    //
+
+    public void AddQuest(Quest quest)
+    {
+        m_Quests.Add(quest);
+    }
+
+    public bool EvaluateQuests()
+    {
+        foreach (Quest quest in m_Quests)
+        {
+            if (!quest.IsComplete())
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /////////////////////////////////////////////
