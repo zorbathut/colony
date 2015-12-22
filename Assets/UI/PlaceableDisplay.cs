@@ -6,7 +6,7 @@ using System.Collections;
 public class PlaceableDisplay : MonoBehaviour
 {
     [SerializeField] Text m_Selector;
-    [SerializeField] Text m_Name;
+    [SerializeField] Text m_DisplayName;
     [SerializeField] Text m_Quantity;
 
     Builder.Placeable m_Placeable;
@@ -18,7 +18,7 @@ public class PlaceableDisplay : MonoBehaviour
 
         m_Placeable = placeable;
 
-        m_Name.text = m_Placeable.template.name;
+        m_DisplayName.text = m_Placeable.template.name;
     }
 
     public virtual void Update()

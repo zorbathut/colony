@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Selector: {fileID: 11441074}
-  m_Name: {fileID: 11461074}
+  m_DisplayName: {fileID: 11461074}
   m_Quantity: {fileID: 11465088}
 --- !u!114 &11497942
 MonoBehaviour:
@@ -358,6 +358,10 @@ Prefab:
       propertyPath: m_Name
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_DisplayName
+      value: 
+      objectReference: {fileID: 11461074}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178472}
