@@ -17,8 +17,8 @@ public class Builder : MonoBehaviour
     [SerializeField] Transform m_PlacementCube;
     [SerializeField] Transform m_DestructionCube;
 
-    [SerializeField, HideInInspector] List<Placeable> m_Placeable = new List<Placeable>();
-    [SerializeField, HideInInspector] int m_PlaceableIndex;
+    [SerializeField, HideInInspector] List<Placeable> m_Placeables = new List<Placeable>();
+    [SerializeField, HideInInspector] int m_PlaceablesIndex;
 
     Vector3 m_TargetPosition;
     bool m_TargetPositionValid = false;
@@ -30,17 +30,17 @@ public class Builder : MonoBehaviour
         // Change index
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            --m_PlaceableIndex;
+            --m_PlaceablesIndex;
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            ++m_PlaceableIndex;
+            ++m_PlaceablesIndex;
         }
-        m_PlaceableIndex = Mathf.Clamp(m_PlaceableIndex, 0, m_Placeable.Count - 1); // happens every frame just in case we remove things from placeable
+        m_PlaceablesIndex = Mathf.Clamp(m_PlaceablesIndex, 0, m_Placeables.Count - 1); // happens every frame just in case we remove things from placeable
 
-        for (int i = 0; i < m_Placeable.Count; ++i)
+        for (int i = 0; i < m_Placeables.Count; ++i)
         {
-            m_Placeable[i].active = (i == m_PlaceableIndex);
+            m_Placeables[i].active = (i == m_PlaceablesIndex);
         }
 
         // Test removal
@@ -152,27 +152,27 @@ public class Builder : MonoBehaviour
 
     public Placeable GetCurrentPlaceable()
     {
-        if (m_Placeable.Count == 0)
+        if (m_Placeables.Count == 0)
         {
             return null;
         }
 
-        if (m_PlaceableIndex < 0 || m_PlaceableIndex >= m_Placeable.Count)
+        if (m_PlaceablesIndex < 0 || m_PlaceablesIndex >= m_Placeables.Count)
         {
             return null;
         }
 
-        return m_Placeable[m_PlaceableIndex];
+        return m_Placeables[m_PlaceablesIndex];
     }
 
     public List<Placeable> GetPlaceables()
     {
-        return m_Placeable;
+        return m_Placeables;
     }
 
     public Placeable FindPlaceableByTemplate(Structure structure)
     {
-        foreach (Placeable placeable in m_Placeable)
+        foreach (Placeable placeable in m_Placeables)
         {
             if (placeable.template == structure)
             {
@@ -185,7 +185,7 @@ public class Builder : MonoBehaviour
 
     public int GetPlaceableIndex()
     {
-        return m_PlaceableIndex;
+        return m_PlaceablesIndex;
     }
 
     public void AddStructure(Structure structure)
@@ -194,7 +194,7 @@ public class Builder : MonoBehaviour
         placeable.template = structure;
         placeable.infinite = true;
         placeable.remaining = 0;
-        m_Placeable.Add(placeable);
+        m_Placeables.Add(placeable);
 
         GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().UpdateStructureList();
     }

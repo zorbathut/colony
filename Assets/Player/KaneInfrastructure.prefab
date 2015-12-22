@@ -399,7 +399,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 126080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .348015428, y: .920000017, z: 3.08096409}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 415128}
@@ -777,8 +777,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlacementCube: {fileID: 473678}
   m_DestructionCube: {fileID: 491324}
-  m_Placeable: []
-  m_PlaceableIndex: 0
+  m_Placeables: []
+  m_PlaceablesIndex: 0
 --- !u!114 &11436088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1057,7 +1057,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 195868}
