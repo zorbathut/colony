@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 471302}
   - 114: {fileID: 11413650}
   m_Layer: 0
-  m_Name: ForestPlacementQuest
+  m_Name: LumberjackQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 454554}
-  - 114: {fileID: 11449432}
+  - 114: {fileID: 11413558}
   m_Layer: 0
   m_Name: Quest
   m_TagString: Untagged
@@ -119,6 +119,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &140986
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 432552}
+  - 114: {fileID: 11449432}
+  m_Layer: 0
+  m_Name: Quest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &145238
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +166,22 @@ GameObject:
   m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &150002
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 425164}
+  - 114: {fileID: 11403232}
+  m_Layer: 0
+  m_Name: ForestPhaseComplete
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +228,7 @@ GameObject:
   - 4: {fileID: 437850}
   - 114: {fileID: 11488334}
   m_Layer: 0
-  m_Name: ForestPhaseComplete
+  m_Name: LumberjackPhaseComplete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,6 +283,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &191424
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 448072}
+  - 114: {fileID: 11443726}
+  m_Layer: 0
+  m_Name: ForestQuest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &195868
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +353,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 8
+  m_RootOrder: 6
+--- !u!4 &425164
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 443636}
+  m_RootOrder: 2
 --- !u!4 &432156
 Transform:
   m_ObjectHideFlags: 1
@@ -317,7 +377,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 6
+  m_RootOrder: 9
+--- !u!4 &432552
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.06809783, y: 16.0709877, z: 17.0763817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 448072}
+  m_RootOrder: 0
 --- !u!4 &436814
 Transform:
   m_ObjectHideFlags: 1
@@ -341,7 +413,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 5
+  m_RootOrder: 7
 --- !u!4 &437850
 Transform:
   m_ObjectHideFlags: 1
@@ -353,7 +425,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 2
+  m_RootOrder: 5
 --- !u!4 &443636
 Transform:
   m_ObjectHideFlags: 1
@@ -365,15 +437,30 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436814}
+  - {fileID: 448072}
+  - {fileID: 425164}
+  - {fileID: 482880}
   - {fileID: 471302}
   - {fileID: 437850}
-  - {fileID: 482880}
-  - {fileID: 489096}
+  - {fileID: 417372}
   - {fileID: 437106}
+  - {fileID: 489096}
   - {fileID: 432156}
   - {fileID: 455364}
-  - {fileID: 417372}
   m_Father: {fileID: 449028}
+  m_RootOrder: 1
+--- !u!4 &448072
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191424}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 432552}
+  m_Father: {fileID: 443636}
   m_RootOrder: 1
 --- !u!4 &449028
 Transform:
@@ -440,7 +527,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 7
+  m_RootOrder: 10
 --- !u!4 &471302
 Transform:
   m_ObjectHideFlags: 1
@@ -453,7 +540,7 @@ Transform:
   m_Children:
   - {fileID: 454554}
   m_Father: {fileID: 443636}
-  m_RootOrder: 1
+  m_RootOrder: 4
 --- !u!4 &473678
 Transform:
   m_ObjectHideFlags: 1
@@ -489,7 +576,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 4
+  m_RootOrder: 8
 --- !u!4 &491324
 Transform:
   m_ObjectHideFlags: 1
@@ -554,7 +641,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -578,7 +667,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -702,6 +793,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Placeable: {fileID: 11424132, guid: 5a79cb6e78581164ead8b42eab28ebe6, type: 2}
+--- !u!114 &11403232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bcf376fa0b00d84c9dc14390013dbdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11411034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -714,6 +816,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Placeable: {fileID: 11434842, guid: 43f50fc92653bc34889d3dc6500ac9a0, type: 2}
+--- !u!114 &11413558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c423bcb9cbc7945a47634194164fe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StructureOne: {fileID: 11424132, guid: 5a79cb6e78581164ead8b42eab28ebe6, type: 2}
+  m_StructureTwo: {fileID: 11448094, guid: b87c583e87d75244cb771bbacd15e37b, type: 2}
+  m_Distance: 1
+  m_Comparator: 1
 --- !u!114 &11413650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -725,7 +842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2702e15a19a7cc4a959d594d3bab2d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Quest: {fileID: 11449432}
+  m_Quest: {fileID: 11413558}
 --- !u!114 &11425016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -805,6 +922,18 @@ MonoBehaviour:
   m_Pillar: {fileID: 416126, guid: 6ca5d85d2e103d34d8536b5d1da91d93, type: 2}
   m_Wall: {fileID: 462052, guid: f0db8f58edeb81e4eb184f5531c792d2, type: 2}
   m_Door: {fileID: 472760, guid: bf6e1104b1e9d514a8096102af26b70a, type: 2}
+--- !u!114 &11443726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2702e15a19a7cc4a959d594d3bab2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Quest: {fileID: 11449432}
 --- !u!114 &11449092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,7 +951,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 112104}
+  m_GameObject: {fileID: 140986}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 654b8e8ffe5da7541b8852ba5337b025, type: 3}
@@ -899,9 +1028,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scripts:
   - {fileID: 11449092}
+  - {fileID: 11443726}
+  - {fileID: 11403232}
+  - {fileID: 11402638}
   - {fileID: 11413650}
   - {fileID: 11488334}
-  - {fileID: 11402638}
   - {fileID: 11436088}
   - {fileID: 11411034}
   - {fileID: 11482932}

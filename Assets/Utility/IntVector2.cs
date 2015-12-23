@@ -11,4 +11,9 @@ public struct IntVector2
         x = in_x;
         z = in_z;
     }
+
+    public static IntVector2 operator-(IntVector2 lhs, IntVector2 rhs)
+    {
+        return new IntVector2(lhs.x - rhs.x, lhs.z - rhs.z);
+    }
 }
