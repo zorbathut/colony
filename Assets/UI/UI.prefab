@@ -176,6 +176,7 @@ MonoBehaviour:
   m_PopupText: {fileID: 11414596}
   m_PlaceableDisplay: {fileID: 11484882, guid: 0d29f36a0d1fdce4c9cc1865115b62fa, type: 2}
   m_PlaceableAnchor: {fileID: 22466586}
+  m_QuestDisplay: {fileID: 11443108, guid: 4064d20ba9a72b448b23a47ec21d3013, type: 2}
 --- !u!222 &22263830
 CanvasRenderer:
   m_ObjectHideFlags: 1

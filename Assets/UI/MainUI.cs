@@ -21,6 +21,10 @@ public class MainUI : MonoBehaviour
 
     List<PlaceableDisplay> m_PlaceableDisplays = new List<PlaceableDisplay>();
 
+    [SerializeField] QuestDisplay m_QuestDisplay;
+
+    float m_QuestDisplayHeight = 0f;
+
     public virtual void Awake()
     {
         Assert.IsNull(s_Manager);
@@ -52,5 +56,13 @@ public class MainUI : MonoBehaviour
 
             ++index;
         }
+    }
+
+    public QuestDisplay AddQuestDisplay()
+    {
+        QuestDisplay display = UIUtil.RectInstantiate(m_QuestDisplay, this.transform);
+        display.GetComponent<RectTransform>().transform.position = display.GetComponent<RectTransform>().transform.position + Vector3.down * m_QuestDisplayHeight;
+        m_QuestDisplayHeight += display.GetComponent<RectTransform>().sizeDelta.y;
+        return display;
     }
 }

@@ -102,7 +102,12 @@ public class Manager : MonoBehaviour
     SparseIntMatrix<GameObject>[] m_Doors = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
 
     // Quests
-    List<Quest> m_Quests = new List<Quest>();
+    struct QuestLinkage
+    {
+        public Quest quest;
+        public QuestDisplay display;
+    }
+    List<QuestLinkage> m_Quests = new List<QuestLinkage>();
 
     /////////////////////////////////////////////
     // INFRASTRUCTURE
@@ -255,20 +260,29 @@ public class Manager : MonoBehaviour
 
     public void AddQuest(Quest quest)
     {
-        m_Quests.Add(quest);
+        QuestDisplay display = GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().AddQuestDisplay();
+        display.Initialize(quest.GetTextual());
+
+        QuestLinkage linkage = new QuestLinkage();
+        linkage.quest = quest;
+        linkage.display = display;
+        m_Quests.Add(linkage);
     }
 
     public bool EvaluateQuests()
     {
-        foreach (Quest quest in m_Quests)
+        bool allComplete = true;
+
+        foreach (QuestLinkage linkage in m_Quests)
         {
-            if (!quest.IsComplete())
-            {
-                return false;
-            }
+            bool complete = linkage.quest.IsComplete();
+
+            allComplete &= complete;
+
+            linkage.display.SetPassFlag(complete);
         }
 
-        return true;
+        return allComplete;
     }
 
     /////////////////////////////////////////////
