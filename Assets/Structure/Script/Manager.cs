@@ -227,6 +227,8 @@ public class Manager : MonoBehaviour
             }
         }
 
+        m_StructureList.Remove(removalTarget);
+
         ReprocessStructural(target, removalTarget);
 
         Structure template = removalTarget.GetTemplate();
