@@ -188,12 +188,12 @@ public class Builder : MonoBehaviour
         return m_PlaceablesIndex;
     }
 
-    public void AddStructure(Structure structure)
+    public void AddStructure(Structure structure, bool infinite)
     {
         Placeable placeable = new Placeable();
         placeable.template = structure;
-        placeable.infinite = true;
-        placeable.remaining = 0;
+        placeable.infinite = infinite;
+        placeable.remaining = 1;    // safe default if we're infinite
         m_Placeables.Add(placeable);
 
         GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().UpdateStructureList();
