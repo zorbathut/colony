@@ -36,7 +36,7 @@ public class QuestConnected : Quest
             // pick an arbitrary in-process square, remove it from the set
             IntVector2 origin = processing.Dequeue();
 
-            Structure element = Manager.instance.GetObjectFromIndex(origin);
+            Structure element = Manager.instance.GetStructureFromIndex(origin);
             Assert.IsNotNull(element);
             if (element == null)
             {
@@ -55,7 +55,7 @@ public class QuestConnected : Quest
                     continue;
                 }
 
-                Structure alterElement = Manager.instance.GetObjectFromIndex(target);
+                Structure alterElement = Manager.instance.GetStructureFromIndex(target);
 
                 if (alterElement == null)
                 {

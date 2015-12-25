@@ -239,10 +239,10 @@ public class Manager : MonoBehaviour
 
     public Structure GetObject(Vector3 position)
     {
-        return GetObjectFromIndex(ClampToIndex(position));
+        return GetStructureFromIndex(ClampToIndex(position));
     }
 
-    public Structure GetObjectFromIndex(IntVector2 position)
+    public Structure GetStructureFromIndex(IntVector2 position)
     {
         return m_WorldLookup.Lookup(position);
     }
