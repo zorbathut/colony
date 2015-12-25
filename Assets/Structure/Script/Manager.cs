@@ -237,7 +237,7 @@ public class Manager : MonoBehaviour
         return template;
     }
 
-    public Structure GetObject(Vector3 position)
+    public Structure GetStructureFromCoordinate(Vector3 position)
     {
         return GetStructureFromIndex(ClampToIndex(position));
     }

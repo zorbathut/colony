@@ -50,7 +50,7 @@ public class Builder : MonoBehaviour
             {
                 errorString = "You can't remove the sky.";
             }
-            else if (!Manager.instance.GetObject(m_TargetPosition))
+            else if (!Manager.instance.GetStructureFromCoordinate(m_TargetPosition))
             {
                 errorString = "Nothing is there to remove.";
             }
@@ -86,7 +86,7 @@ public class Builder : MonoBehaviour
             {
                 errorString = "You don't have any of those left to place.";
             }
-            else if (Manager.instance.GetObject(m_TargetPosition))
+            else if (Manager.instance.GetStructureFromCoordinate(m_TargetPosition))
             {
                 errorString = "A building must not be placed on another building.";
             }
@@ -120,7 +120,7 @@ public class Builder : MonoBehaviour
             m_TargetPosition = Manager.instance.ClampToGrid(hit.point);
 
             // Figure out what kind of display cube we should be using
-            Structure targetStructure = Manager.instance.GetObject(m_TargetPosition);
+            Structure targetStructure = Manager.instance.GetStructureFromCoordinate(m_TargetPosition);
             Structure nextStructure = GetCurrentPlaceable() != null ? GetCurrentPlaceable().template : null;
 
             if (targetStructure)
