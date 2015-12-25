@@ -271,6 +271,18 @@ public class Manager : MonoBehaviour
         m_Quests.Add(linkage);
     }
 
+    public void RemoveQuest(Quest quest)
+    {
+        foreach (QuestLinkage linkage in m_Quests)
+        {
+            if (linkage.quest == quest)
+            {
+                GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().RemoveQuestDisplay(linkage.display);
+                m_Quests.Remove(linkage);
+            }
+        }
+    }
+
     public bool EvaluateQuests()
     {
         bool allComplete = true;

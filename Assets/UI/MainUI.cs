@@ -23,7 +23,7 @@ public class MainUI : MonoBehaviour
 
     [SerializeField] QuestDisplay m_QuestDisplay;
 
-    float m_QuestDisplayHeight = 0f;
+    List<QuestDisplay> m_QuestDisplays = new List<QuestDisplay>();
 
     public virtual void Awake()
     {
@@ -61,8 +61,25 @@ public class MainUI : MonoBehaviour
     public QuestDisplay AddQuestDisplay()
     {
         QuestDisplay display = UIUtil.RectInstantiate(m_QuestDisplay, this.transform);
-        display.GetComponent<RectTransform>().transform.position = display.GetComponent<RectTransform>().transform.position + Vector3.down * m_QuestDisplayHeight;
-        m_QuestDisplayHeight += display.GetComponent<RectTransform>().sizeDelta.y;
+        m_QuestDisplays.Add(display);
+        RecalculateQuestDisplayPositions();
         return display;
+    }
+
+    public void RemoveQuestDisplay(QuestDisplay display)
+    {
+        m_QuestDisplays.Remove(display);
+        Destroy(display.gameObject);
+        RecalculateQuestDisplayPositions();
+    }
+
+    void RecalculateQuestDisplayPositions()
+    {
+        float currentPosition = 0;
+        foreach (QuestDisplay questDisplay in m_QuestDisplays)
+        {
+            currentPosition -= questDisplay.GetComponent<RectTransform>().sizeDelta.y;
+            questDisplay.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, currentPosition);
+        }
     }
 }

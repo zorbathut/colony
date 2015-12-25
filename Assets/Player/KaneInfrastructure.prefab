@@ -89,6 +89,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 463424}
+  - 114: {fileID: 11497562}
   m_Layer: 0
   m_Name: PathQuestRemoveLumberjack
   m_TagString: Untagged
@@ -1392,6 +1393,7 @@ MonoBehaviour:
   - {fileID: 11413650}
   - {fileID: 11488334}
   - {fileID: 11402638}
+  - {fileID: 11497562}
   - {fileID: 11429282}
   - {fileID: 11488060}
   - {fileID: 11433452}
@@ -1580,10 +1582,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c423bcb9cbc7945a47634194164fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StructureOne: {fileID: 11424132, guid: 5a79cb6e78581164ead8b42eab28ebe6, type: 2}
-  m_StructureTwo: {fileID: 11448094, guid: b87c583e87d75244cb771bbacd15e37b, type: 2}
+  m_StructureOne: {fileID: 11414932, guid: 395d873d12e94d44f97e23cb5c8b712c, type: 2}
+  m_StructureTwo: {fileID: 11424132, guid: 5a79cb6e78581164ead8b42eab28ebe6, type: 2}
   m_Distance: 2
   m_Comparator: 0
+--- !u!114 &11497562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79e138d405f6af4b9bd25ab9b75a7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Quest: {fileID: 11413558}
 --- !u!143 &14384796
 CharacterController:
   m_ObjectHideFlags: 1
