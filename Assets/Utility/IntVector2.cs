@@ -13,6 +13,16 @@ public struct IntVector2
         z = in_z;
     }
 
+    public override string ToString()
+    {
+        return string.Format("({0}, {1})", x, z);
+    }
+
+    public static IntVector2 operator+(IntVector2 lhs, IntVector2 rhs)
+    {
+        return new IntVector2(lhs.x + rhs.x, lhs.z + rhs.z);
+    }
+
     public static IntVector2 operator-(IntVector2 lhs, IntVector2 rhs)
     {
         return new IntVector2(lhs.x - rhs.x, lhs.z - rhs.z);
