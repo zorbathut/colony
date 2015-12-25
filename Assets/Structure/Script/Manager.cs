@@ -279,6 +279,7 @@ public class Manager : MonoBehaviour
             {
                 GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().RemoveQuestDisplay(linkage.display);
                 m_Quests.Remove(linkage);
+                break;
             }
         }
     }
