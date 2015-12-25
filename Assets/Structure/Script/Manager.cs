@@ -322,16 +322,13 @@ public class Manager : MonoBehaviour
 
     void RecalculatePillar(int x, int z)
     {
-        int[] dx = {-1, -1, 0, 0};
-        int[] dz = {-1, 0, -1, 0};
-
         // There is a pillar if there is at least one surrounding structure with the Walls flag and not all surrounding structures are identical
         bool hasWalls = false;
         bool heterogenous = false;
         Structure reference = m_WorldLookup.Lookup(x, z);
-        for (int i = 0; i < 4; ++i)
+        foreach (IntVector2 delta in IntVector2.GetManhattanAdjacencies())
         {
-            Structure piece = m_WorldLookup.Lookup(x + dx[i], z + dz[i]);
+            Structure piece = m_WorldLookup.Lookup(x + delta.x, z + delta.z);
             hasWalls |= piece && piece.GetWalled();
             heterogenous |= (reference != piece);
         }
