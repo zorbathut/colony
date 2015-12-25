@@ -20,6 +20,8 @@ public class Structure : MonoBehaviour
 
         m_Template = template;
         m_Origin = origin;
+
+        Assert.IsTrue(Manager.instance.GetObjectFromIndex(origin) == this);
     }
 
     public Structure GetTemplate()

@@ -182,9 +182,6 @@ public class Manager : MonoBehaviour
         }
 
         Structure newStructure = Instantiate(structure);
-        newStructure.Initialize(structure, target);
-        newStructure.transform.position = ClampToGrid(position) + new Vector3((newStructure.GetWidth() - 1) * Constants.GridSize / 2, 0, (newStructure.GetLength() - 1) * Constants.GridSize / 2);
-
         for (int x = 0; x < structure.GetWidth(); ++x)
         {
             for (int z = 0; z < structure.GetLength(); ++z)
@@ -192,6 +189,8 @@ public class Manager : MonoBehaviour
                 m_WorldLookup.Set(target.x + x, target.z + z, newStructure);
             }
         }
+        newStructure.Initialize(structure, target); // initialize after worldlookup set; that way the internal validation code works
+        newStructure.transform.position = ClampToGrid(position) + new Vector3((newStructure.GetWidth() - 1) * Constants.GridSize / 2, 0, (newStructure.GetLength() - 1) * Constants.GridSize / 2);
 
         m_StructureList.Add(newStructure);
 
@@ -240,7 +239,12 @@ public class Manager : MonoBehaviour
 
     public Structure GetObject(Vector3 position)
     {
-        return m_WorldLookup.Lookup(ClampToIndex(position));
+        return GetObjectFromIndex(ClampToIndex(position));
+    }
+
+    public Structure GetObjectFromIndex(IntVector2 position)
+    {
+        return m_WorldLookup.Lookup(position);
     }
 
     public Structure GetStructureOfType(Structure structure)
