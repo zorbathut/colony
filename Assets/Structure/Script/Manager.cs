@@ -326,11 +326,19 @@ public class Manager : MonoBehaviour
 
     void RecalculatePillar(int x, int z)
     {
+        // Pillar is aligned at the corner of a grid, so we compare everything "adjacent" to that corner
+        IntVector2[] adjacencies = {
+            new IntVector2(0, 0),
+            new IntVector2(-1, 0),
+            new IntVector2(0, -1),
+            new IntVector2(-1, -1),
+        };
+
         // There is a pillar if there is at least one surrounding structure with the Walls flag and not all surrounding structures are identical
         bool hasWalls = false;
         bool heterogenous = false;
         Structure reference = m_WorldLookup.Lookup(x, z);
-        foreach (IntVector2 delta in IntVector2.GetManhattanAdjacencies())
+        foreach (IntVector2 delta in adjacencies)
         {
             Structure piece = m_WorldLookup.Lookup(x + delta.x, z + delta.z);
             hasWalls |= piece && piece.GetWalled();
