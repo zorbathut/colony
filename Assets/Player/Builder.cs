@@ -197,5 +197,11 @@ public class Builder : MonoBehaviour
         m_Placeables.Add(placeable);
 
         GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().UpdateStructureList();
+
+        // Set to this object if the current object is unavailable
+        if (GetCurrentPlaceable() != null && !GetCurrentPlaceable().infinite && GetCurrentPlaceable().remaining <= 0)
+        {
+            m_PlaceablesIndex = m_Placeables.Count - 1;
+        }
     }
 }
