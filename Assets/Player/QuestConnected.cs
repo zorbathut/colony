@@ -74,6 +74,12 @@ public class QuestConnected : Quest
                     }
                 }
 
+                if (element.GetImpassable() || alterElement.GetImpassable())
+                {
+                    // we shall not pass
+                    continue;
+                }
+
                 // We're adjacent!
 
                 if (alterElement == twoInstance)
