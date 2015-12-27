@@ -61,7 +61,6 @@ public class Builder : MonoBehaviour
                 {
                     // Success!
                     Placeable placeable = FindPlaceableByTemplate(removed);
-                    Assert.IsNotNull(placeable);
                     if (placeable != null)
                     {
                         ++placeable.remaining;
