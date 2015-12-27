@@ -2738,6 +2738,8 @@ MonoBehaviour:
   m_Wall: {fileID: 462052, guid: f0db8f58edeb81e4eb184f5531c792d2, type: 2}
   m_Door: {fileID: 472760, guid: bf6e1104b1e9d514a8096102af26b70a, type: 2}
   m_Aqueduct: {fileID: 459002, guid: 770451566e7e14144bccaee80541207f, type: 2}
+  m_AqueductStructure: {fileID: 11493842, guid: de150e8b44f939e4d8c6d19ade7a0d8e,
+    type: 2}
 --- !u!114 &11441614
 MonoBehaviour:
   m_ObjectHideFlags: 1

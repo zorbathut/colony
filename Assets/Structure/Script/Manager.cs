@@ -27,6 +27,8 @@ public class Manager : MonoBehaviour
     [SerializeField] Transform m_Door;
     [SerializeField] Transform m_Aqueduct;
 
+    [SerializeField] Structure m_AqueductStructure; // the buildable aqueduct; used to tell if we're aqueduct-ready
+
     // li'l bit of abstraction here
     class SparseIntMatrix<T> where T : Object
     {
@@ -310,23 +312,47 @@ public class Manager : MonoBehaviour
     /////////////////////////////////////////////
     // INTERNAL (STRUCTURAL)
     //
-    
+
+    IntVector2 m_minimumRecalculated = new IntVector2(0, 0);
+    IntVector2 m_maximumRecalculated = new IntVector2(0, 0);
     void ReprocessStructural(IntVector2 origin, Structure structure)
     {
         for (int x = origin.x; x < origin.x + structure.GetWidth() + 1; ++x)
         {
             for (int z = origin.z; z < origin.z + structure.GetLength() + 1; ++z)
             {
-                // there is just no clean way to do this
-                RecalculatePillar(x, z);
-                RecalculateWall(x, z, m_Walls[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
-                RecalculateWall(x, z, m_Walls[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
-                RecalculateDoor(x, z, m_Doors[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
-                RecalculateDoor(x, z, m_Doors[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
-                RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
-                RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
+                RecalculateTile(x, z);
             }
         }
+    }
+
+    public void ReprocessAllStructural()
+    {
+        // Terribly inefficient, but happens rarely
+        for (int x = m_minimumRecalculated.x; x <= m_maximumRecalculated.x; ++x)
+        {
+            for (int z = m_minimumRecalculated.z; z <= m_maximumRecalculated.z; ++z)
+            {
+                RecalculateTile(x, z);
+            }
+        }
+    }
+
+    void RecalculateTile(int x, int z)
+    {
+        m_minimumRecalculated.x = Mathf.Min(m_minimumRecalculated.x, x);
+        m_minimumRecalculated.z = Mathf.Min(m_minimumRecalculated.z, z);
+        m_maximumRecalculated.x = Mathf.Min(m_maximumRecalculated.x, x);
+        m_maximumRecalculated.z = Mathf.Min(m_maximumRecalculated.z, z);
+
+        // there is just no clean way to do this
+        RecalculatePillar(x, z);
+        RecalculateWall(x, z, m_Walls[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
+        RecalculateWall(x, z, m_Walls[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
+        RecalculateDoor(x, z, m_Doors[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
+        RecalculateDoor(x, z, m_Doors[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
+        RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
+        RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
     }
 
     void RecalculatePillar(int x, int z)
@@ -388,6 +414,9 @@ public class Manager : MonoBehaviour
         bool hasAqueduct = true;
         hasAqueduct &= lhs && lhs.GetWaterRelated();
         hasAqueduct &= rhs && rhs.GetWaterRelated();
+
+        // this might be a performance concern, worry about it if things get slow
+        hasAqueduct &= GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Builder>().HasStructure(m_AqueductStructure);
 
         SetStructure(storage, x, z, m_Aqueduct, hasAqueduct, rotation);
     }
