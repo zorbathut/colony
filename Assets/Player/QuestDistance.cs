@@ -61,9 +61,14 @@ public class QuestDistance : Quest
 
     public override string GetTextual()
     {
-        if (m_Comparator == DistanceComparator.AtMost && m_Distance == 1)
+        if (GetActiveTargets().Count == 0)
         {
-            // Special-case for English
+            // Special-case for no targets
+            return string.Format("Place {0}", m_Structure.name);
+        }
+        else if (m_Comparator == DistanceComparator.AtMost && m_Distance == 1)
+        {
+            // Special-case for adjacency
             return string.Format("Place {0} adjacent to {1}", m_Structure.name, StringizeActiveTargets());
         }
         else
@@ -147,6 +152,12 @@ public class QuestDistance : Quest
     public override bool IsComplete()
     {
         List<Structure> targets = GetActiveTargets();
+
+        if (Manager.instance.GetStructureOfType(m_Structure) == null)
+        {
+            // has to exist
+            return false;
+        }
 
         foreach (Structure target in targets)
         {
