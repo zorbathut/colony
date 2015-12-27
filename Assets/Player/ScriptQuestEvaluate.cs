@@ -5,6 +5,13 @@ public class ScriptQuestEvaluate : Script
 {
     static bool s_debugOverrideNext = false;
 
+    public static bool ConsumeDebugOverride()
+    {
+        bool result = s_debugOverrideNext;
+        s_debugOverrideNext = false;
+        return result;
+    }
+
     public virtual void Update()
     {
         if (Input.GetKeyDown("p"))
@@ -15,9 +22,8 @@ public class ScriptQuestEvaluate : Script
 
     public override bool Execute()
     {
-        if (s_debugOverrideNext)
+        if (ConsumeDebugOverride())
         {
-            s_debugOverrideNext = false;
             return true;
         }
 
