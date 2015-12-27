@@ -26,6 +26,7 @@ public class Manager : MonoBehaviour
     [SerializeField] Transform m_Wall;
     [SerializeField] Transform m_Door;
     [SerializeField] Transform m_Aqueduct;
+    [SerializeField] Transform m_AqueductEndcap;
 
     [SerializeField] Structure m_AqueductStructure; // the buildable aqueduct; used to tell if we're aqueduct-ready
 
@@ -96,14 +97,18 @@ public class Manager : MonoBehaviour
     // Each of them is positioned at the top-left of the index, when appropriate; pillars at the top-left corner, walls and doors at either the top edge or the left edge
     // This means if we add a structure at (x,z), with size (width,length), we can rescan all relevant structural elements by going through [(x,z),(x+width+1,z+length+1))
     // Walls and Doors are stored with two different matrices, one for each horizontal and vertical
+    // AqueductEndcaps are asymmetrical and include four arrays, one for each cardinal direction
     enum Alignment {
         Horizontal,
         Vertical,
+        HorizontalBackwards,
+        VerticalBackwards,
     };
     SparseIntMatrix<GameObject> m_Pillars = new SparseIntMatrix<GameObject>();
     SparseIntMatrix<GameObject>[] m_Walls = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
     SparseIntMatrix<GameObject>[] m_Doors = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
     SparseIntMatrix<GameObject>[] m_Aqueducts = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
+    SparseIntMatrix<GameObject>[] m_AqueductEndcaps = new SparseIntMatrix<GameObject>[4] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
 
     // Quests
     struct QuestLinkage
@@ -317,9 +322,10 @@ public class Manager : MonoBehaviour
     IntVector2 m_maximumRecalculated = new IntVector2(0, 0);
     void ReprocessStructural(IntVector2 origin, Structure structure)
     {
-        for (int x = origin.x; x < origin.x + structure.GetWidth() + 1; ++x)
+        // extra -1 range on both x and y are for the sake of the aqueduct system
+        for (int x = origin.x - 1; x < origin.x + structure.GetWidth() + 1; ++x)
         {
-            for (int z = origin.z; z < origin.z + structure.GetLength() + 1; ++z)
+            for (int z = origin.z - 1; z < origin.z + structure.GetLength() + 1; ++z)
             {
                 RecalculateTile(x, z);
             }
@@ -353,6 +359,10 @@ public class Manager : MonoBehaviour
         RecalculateDoor(x, z, m_Doors[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
         RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
         RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
+        RecalculateAqueductEndcap(x, z, m_AqueductEndcaps[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
+        RecalculateAqueductEndcap(x, z, m_AqueductEndcaps[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
+        RecalculateAqueductEndcap(x, z, m_AqueductEndcaps[(int)Alignment.HorizontalBackwards], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z + 1), Quaternion.AngleAxis(180, Vector3.up));
+        RecalculateAqueductEndcap(x, z, m_AqueductEndcaps[(int)Alignment.VerticalBackwards], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x + 1, z), Quaternion.AngleAxis(270, Vector3.up));
     }
 
     void RecalculatePillar(int x, int z)
@@ -419,6 +429,18 @@ public class Manager : MonoBehaviour
         hasAqueduct &= GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Builder>().HasStructure(m_AqueductStructure);
 
         SetStructure(storage, x, z, m_Aqueduct, hasAqueduct, rotation);
+    }
+
+    void RecalculateAqueductEndcap(int x, int z, SparseIntMatrix<GameObject> storage, Structure lhs, Structure rhs, Quaternion rotation)
+    {
+        // An aqueduct exists iff the first structure is WaterRelated and the second isn't.
+        bool lhsFits = lhs && lhs.GetWaterRelated();
+        bool rhsFits = !(rhs && rhs.GetWaterRelated());
+
+        // this might be a performance concern, worry about it if things get slow
+        bool hasAqueduct = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Builder>().HasStructure(m_AqueductStructure);
+
+        SetStructure(storage, x, z, m_AqueductEndcap, lhsFits && rhsFits && hasAqueduct, rotation);
     }
 
     void SetStructure(SparseIntMatrix<GameObject> storage, int x, int z, Transform prefab, bool shouldExist, Quaternion rotation)
