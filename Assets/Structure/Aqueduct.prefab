@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Length: 1
   m_Walled: 0
   m_DoorCreator: 0
-  m_Impassable: 0
+  m_Impassable: 1
   m_WaterRelated: 1
   m_Template: {fileID: 0}
 --- !u!1001 &100100000
@@ -52,7 +52,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Impassable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 156694}

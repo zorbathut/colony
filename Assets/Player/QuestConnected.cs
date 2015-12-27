@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,12 +9,63 @@ public class QuestConnected : Quest
     [SerializeField] Structure m_StructureOne;
     [SerializeField] Structure m_StructureTwo;
 
+    enum ConnectionType
+    {
+        Ground,
+        Water,
+    };
+    [SerializeField] ConnectionType m_Type = ConnectionType.Ground;
+
     public override string GetTextual()
     {
-        return string.Format("Connect {0} and {1}", m_StructureOne.name, m_StructureTwo.name);
+        return string.Format("Connect {0} and {1}{2}", m_StructureOne.name, m_StructureTwo.name, m_Type == ConnectionType.Water ? " via aqueducts" : "");
     }
 
     public override bool IsComplete()
+    {
+        if (m_Type == ConnectionType.Ground)
+        {
+            return IsConnected(IsWalkable);
+        }
+        else if (m_Type == ConnectionType.Water)
+        {
+            return IsConnected(IsAqueduct);
+        }
+        else
+        {
+            Assert.IsTrue(false);
+            return true; // most likely to not prevent the game from continuing
+        }
+    }
+
+    bool IsWalkable(Structure lhs, Structure rhs)
+    {
+        if (lhs.GetWalled() != rhs.GetWalled())
+        {
+            // One is walled, the other isn't; this is potentially a problem
+            if (!lhs.GetWalled() && !lhs.GetDoorCreator() ||
+                !rhs.GetWalled() && !rhs.GetDoorCreator())
+            {
+                // If either element isn't walled *and* isn't a door creator, then it can't reach the walled element
+                return false;
+            }
+        }
+
+        if (lhs.GetImpassable() || rhs.GetImpassable())
+        {
+            // we shall not pass
+            return false;
+        }
+
+        return true;
+    }
+
+    bool IsAqueduct(Structure lhs, Structure rhs)
+    {
+        return lhs.GetWaterRelated() && rhs.GetWaterRelated(); // Aqueduct!
+    }
+
+    bool IsConnected(Func<Structure, Structure, bool> comparator)
     {
         Structure oneInstance = Manager.instance.GetStructureOfType(m_StructureOne);
         Structure twoInstance = Manager.instance.GetStructureOfType(m_StructureTwo);
@@ -63,20 +115,9 @@ public class QuestConnected : Quest
                     continue;
                 }
 
-                if (alterElement.GetWalled() != element.GetWalled())
+                if (!comparator(element, alterElement))
                 {
-                    // One is walled, the other isn't; this is potentially a problem
-                    if (!element.GetWalled() && !element.GetDoorCreator() ||
-                        !alterElement.GetWalled() && !alterElement.GetDoorCreator())
-                    {
-                        // If either element isn't walled *and* isn't a door creator, then it can't reach the walled element
-                        continue;
-                    }
-                }
-
-                if (element.GetImpassable() || alterElement.GetImpassable())
-                {
-                    // we shall not pass
+                    // not adjacent, whatever that means in context; abort
                     continue;
                 }
 
