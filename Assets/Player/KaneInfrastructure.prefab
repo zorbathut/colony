@@ -225,6 +225,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &116174
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 474818}
+  - 114: {fileID: 11439504}
+  m_Layer: 0
+  m_Name: WellQuest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &116324
 GameObject:
   m_ObjectHideFlags: 1
@@ -251,7 +267,7 @@ GameObject:
   - 4: {fileID: 472038}
   - 114: {fileID: 11418394}
   m_Layer: 0
-  m_Name: WellQuest
+  m_Name: ArmoryQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +363,7 @@ GameObject:
   - 4: {fileID: 463424}
   - 114: {fileID: 11403556}
   m_Layer: 0
-  m_Name: AntiForestQuestComplete
+  m_Name: XForestQuestComplete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,6 +626,22 @@ GameObject:
   - 114: {fileID: 11456594}
   m_Layer: 0
   m_Name: PathQuestConnected
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &140566
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 487926}
+  - 114: {fileID: 11462648}
+  m_Layer: 0
+  m_Name: WellAdd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -907,6 +939,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &161318
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 437478}
+  - 114: {fileID: 11490662}
+  m_Layer: 0
+  m_Name: Quest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &161636
 GameObject:
   m_ObjectHideFlags: 1
@@ -949,7 +997,7 @@ GameObject:
   - 4: {fileID: 419430}
   - 114: {fileID: 11497562}
   m_Layer: 0
-  m_Name: AntiForestQuestRemoveForest
+  m_Name: XForestQuestRemoveForest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1061,7 +1109,7 @@ GameObject:
   - 4: {fileID: 405388}
   - 114: {fileID: 11467056}
   m_Layer: 0
-  m_Name: WellAdd
+  m_Name: ArmoryAdd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,7 +1270,7 @@ GameObject:
   - 4: {fileID: 448072}
   - 114: {fileID: 11443726}
   m_Layer: 0
-  m_Name: AntiForestQuest
+  m_Name: XForestQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1408,7 +1456,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 38
+  m_RootOrder: 50
 --- !u!4 &407002
 Transform:
   m_ObjectHideFlags: 1
@@ -1726,6 +1774,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 443636}
   m_RootOrder: 11
+--- !u!4 &437478
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161318}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.06809783, y: 16.0709877, z: 17.0763817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 474818}
+  m_RootOrder: 0
 --- !u!4 &438924
 Transform:
   m_ObjectHideFlags: 1
@@ -1835,8 +1895,8 @@ Transform:
   - {fileID: 493716}
   - {fileID: 475548}
   - {fileID: 471302}
-  - {fileID: 405388}
-  - {fileID: 472038}
+  - {fileID: 487926}
+  - {fileID: 474818}
   - {fileID: 474106}
   - {fileID: 452056}
   - {fileID: 449536}
@@ -1847,6 +1907,8 @@ Transform:
   - {fileID: 421016}
   - {fileID: 499382}
   - {fileID: 448194}
+  - {fileID: 405388}
+  - {fileID: 472038}
   m_Father: {fileID: 449028}
   m_RootOrder: 1
 --- !u!4 &444768
@@ -2140,7 +2202,7 @@ Transform:
   m_Children:
   - {fileID: 479934}
   m_Father: {fileID: 443636}
-  m_RootOrder: 39
+  m_RootOrder: 51
 --- !u!4 &473678
 Transform:
   m_ObjectHideFlags: 1
@@ -2177,6 +2239,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 499082}
   m_RootOrder: 0
+--- !u!4 &474818
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 437478}
+  m_Father: {fileID: 443636}
+  m_RootOrder: 39
 --- !u!4 &475548
 Transform:
   m_ObjectHideFlags: 1
@@ -2275,6 +2350,18 @@ Transform:
   - {fileID: 444768}
   m_Father: {fileID: 443636}
   m_RootOrder: 12
+--- !u!4 &487926
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.06809783, y: 16.0709877, z: 17.0763817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 443636}
+  m_RootOrder: 38
 --- !u!4 &489096
 Transform:
   m_ObjectHideFlags: 1
@@ -2591,7 +2678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79e138d405f6af4b9bd25ab9b75a7c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Quest: {fileID: 11470940}
+  m_Quest: {fileID: 11490662}
 --- !u!114 &11401150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3054,6 +3141,18 @@ MonoBehaviour:
   m_Aqueduct: {fileID: 459002, guid: 770451566e7e14144bccaee80541207f, type: 2}
   m_AqueductStructure: {fileID: 11493842, guid: de150e8b44f939e4d8c6d19ade7a0d8e,
     type: 2}
+--- !u!114 &11439504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2702e15a19a7cc4a959d594d3bab2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Quest: {fileID: 11490662}
 --- !u!114 &11441614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3278,6 +3377,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Quest: {fileID: 11427930}
+--- !u!114 &11462648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb88be35bb717824797e00237d1ca3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Placeable: {fileID: 11424132, guid: 1ed64afaa624d5e459aadff095a33aa2, type: 2}
+  m_Infinite: 0
 --- !u!114 &11463616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3338,7 +3450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb88be35bb717824797e00237d1ca3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Placeable: {fileID: 11424132, guid: 1ed64afaa624d5e459aadff095a33aa2, type: 2}
+  m_Placeable: {fileID: 11470310, guid: cb307ff96d91b4d4b873a134bd70ce9d, type: 2}
   m_Infinite: 0
 --- !u!114 &11467572
 MonoBehaviour:
@@ -3441,8 +3553,8 @@ MonoBehaviour:
   - {fileID: 11478570}
   - {fileID: 11413650}
   - {fileID: 11403232}
-  - {fileID: 11467056}
-  - {fileID: 11418394}
+  - {fileID: 11462648}
+  - {fileID: 11439504}
   - {fileID: 11403232}
   - {fileID: 11484128}
   - {fileID: 11488060}
@@ -3456,6 +3568,9 @@ MonoBehaviour:
   - {fileID: 11435272}
   - {fileID: 11405954}
   - {fileID: 11403232}
+  - {fileID: 11467056}
+  - {fileID: 11418394}
+  - {fileID: 11403232}
 --- !u!114 &11470940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3467,11 +3582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c423bcb9cbc7945a47634194164fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Structure: {fileID: 11424132, guid: 1ed64afaa624d5e459aadff095a33aa2, type: 2}
+  m_Structure: {fileID: 11470310, guid: cb307ff96d91b4d4b873a134bd70ce9d, type: 2}
   m_Targets:
-  - {fileID: 11426922, guid: 180ad1d6042a28a43850208b6044fa9b, type: 2}
   - {fileID: 11448094, guid: d517461ae5f048a49aab69b9786f5494, type: 2}
-  - {fileID: 11414932, guid: a515a8197bc3d6e4fb565c6ed19d473c, type: 2}
   m_Distance: 2
   m_Comparator: 1
 --- !u!114 &11473762
@@ -3794,6 +3907,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Quest: {fileID: 11407048}
+--- !u!114 &11490662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c423bcb9cbc7945a47634194164fe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Structure: {fileID: 11424132, guid: 1ed64afaa624d5e459aadff095a33aa2, type: 2}
+  m_Targets:
+  - {fileID: 11426922, guid: 180ad1d6042a28a43850208b6044fa9b, type: 2}
+  - {fileID: 11448094, guid: d517461ae5f048a49aab69b9786f5494, type: 2}
+  - {fileID: 11414932, guid: a515a8197bc3d6e4fb565c6ed19d473c, type: 2}
+  m_Distance: 2
+  m_Comparator: 1
 --- !u!114 &11492696
 MonoBehaviour:
   m_ObjectHideFlags: 1
