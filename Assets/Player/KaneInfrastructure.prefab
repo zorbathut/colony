@@ -875,9 +875,9 @@ Transform:
   - {fileID: 452032}
   - {fileID: 417372}
   - {fileID: 412156}
-  - {fileID: 493716}
-  - {fileID: 446866}
   - {fileID: 455364}
+  - {fileID: 446866}
+  - {fileID: 493716}
   - {fileID: 452056}
   m_Father: {fileID: 449028}
   m_RootOrder: 1
@@ -1022,7 +1022,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 20
+  m_RootOrder: 18
 --- !u!4 &457776
 Transform:
   m_ObjectHideFlags: 1
@@ -1169,7 +1169,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 443636}
-  m_RootOrder: 18
+  m_RootOrder: 20
 --- !u!20 &2014648
 Camera:
   m_ObjectHideFlags: 1
