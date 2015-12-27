@@ -128,7 +128,7 @@ public class Builder : MonoBehaviour
                 // removal
                 m_DestructionCube.gameObject.SetActive(true);
 
-                m_DestructionCube.localScale = new Vector3(targetStructure.GetWidth(), 1, targetStructure.GetLength()) * 3; // magic number to make the cube look visually good
+                m_DestructionCube.localScale = new Vector3(targetStructure.GetWidth() * 5 - 2, 3, targetStructure.GetLength() * 5 - 2); // magic number to make the cube look visually good
 
                 m_DestructionCube.transform.position = targetStructure.transform.position;
             }
@@ -137,7 +137,7 @@ public class Builder : MonoBehaviour
                 // placement
                 m_PlacementCube.gameObject.SetActive(true);
 
-                m_PlacementCube.localScale = new Vector3(nextStructure.GetWidth(), 1, nextStructure.GetLength()) * 3; // magic number to make the cube look visually good
+                m_PlacementCube.localScale = new Vector3(nextStructure.GetWidth() * 5 - 2, 3, nextStructure.GetLength() * 5 - 2); // magic calculations to make the cube look visually good
 
                 Vector3 cubePosition = m_TargetPosition;
 
