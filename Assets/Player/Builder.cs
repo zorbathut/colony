@@ -205,6 +205,21 @@ public class Builder : MonoBehaviour
         }
     }
 
+    public void RemoveStructure(Structure structure)
+    {
+        foreach (Placeable placeable in m_Placeables)
+        {
+            if (placeable.template == structure)
+            {
+                m_Placeables.Remove(placeable);
+                GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().UpdateStructureList();
+                return;
+            }
+        }
+
+        Assert.IsTrue(false, "Attempted to remove structure that the player cannot build");
+    }
+
     public bool HasStructure(Structure structure)
     {
         foreach (Placeable placeable in GetPlaceables())

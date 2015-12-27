@@ -267,12 +267,13 @@ public class Manager : MonoBehaviour
     public void AddQuest(Quest quest)
     {
         QuestDisplay display = GameObject.FindGameObjectWithTag(Tags.UI).GetComponent<MainUI>().AddQuestDisplay();
-        display.Initialize(quest.GetTextual());
 
         QuestLinkage linkage = new QuestLinkage();
         linkage.quest = quest;
         linkage.display = display;
         m_Quests.Add(linkage);
+
+        EvaluateQuests(); // update graphics; hilariously inefficient, but with ~20 quests at most, doesn't matter
     }
 
     public void RemoveQuest(Quest quest)
@@ -298,7 +299,7 @@ public class Manager : MonoBehaviour
 
             allComplete &= complete;
 
-            linkage.display.SetPassFlag(complete);
+            linkage.display.UpdateDisplay(linkage.quest.GetTextual(), complete);
         }
 
         return allComplete;

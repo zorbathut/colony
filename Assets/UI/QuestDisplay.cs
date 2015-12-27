@@ -9,14 +9,10 @@ public class QuestDisplay : MonoBehaviour
     [SerializeField] Image m_Fail;
     [SerializeField] Text m_Text;
 
-    public void Initialize(string text)
+    public void UpdateDisplay(string text, bool flag)
     {
         m_Text.text = text;
-        SetPassFlag(false); // sensible default
-    }
 
-    public void SetPassFlag(bool flag)
-    {
         if (flag)
         {
             m_Pass.gameObject.SetActive(true);

@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 493716}
-  - 114: {fileID: 11478570}
+  - 114: {fileID: 11484670}
   m_Layer: 0
   m_Name: LargeForestRemoveForest
   m_TagString: Untagged
@@ -172,6 +172,22 @@ GameObject:
   - 114: {fileID: 11496512}
   m_Layer: 0
   m_Name: Quest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &112220
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 475548}
+  - 114: {fileID: 11478570}
+  m_Layer: 0
+  m_Name: LargeForestRemoveForestQuest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1321,6 +1337,7 @@ Transform:
   - {fileID: 463424}
   - {fileID: 464936}
   - {fileID: 493716}
+  - {fileID: 475548}
   - {fileID: 471302}
   m_Father: {fileID: 449028}
   m_RootOrder: 1
@@ -1576,7 +1593,7 @@ Transform:
   m_Children:
   - {fileID: 454554}
   m_Father: {fileID: 443636}
-  m_RootOrder: 35
+  m_RootOrder: 36
 --- !u!4 &473678
 Transform:
   m_ObjectHideFlags: 1
@@ -1601,6 +1618,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 499082}
   m_RootOrder: 0
+--- !u!4 &475548
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112220}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.06809783, y: 16.0709877, z: 17.0763817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 443636}
+  m_RootOrder: 35
 --- !u!4 &476356
 Transform:
   m_ObjectHideFlags: 1
@@ -2589,6 +2618,7 @@ MonoBehaviour:
   - {fileID: 11497562}
   - {fileID: 11403556}
   - {fileID: 11447960}
+  - {fileID: 11484670}
   - {fileID: 11478570}
   - {fileID: 11413650}
   - {fileID: 11403232}
@@ -2634,7 +2664,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 103656}
+  m_GameObject: {fileID: 112220}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b79e138d405f6af4b9bd25ab9b75a7c5, type: 3}
@@ -2706,6 +2736,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Placeable: {fileID: 11479146, guid: 59443396f77c1da4d934e98a092c34ed, type: 2}
   m_Infinite: 0
+--- !u!114 &11484670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376f8dc341a663a4cb9dc997f273c3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Placeable: {fileID: 11448094, guid: b87c583e87d75244cb771bbacd15e37b, type: 2}
 --- !u!114 &11485142
 MonoBehaviour:
   m_ObjectHideFlags: 1
