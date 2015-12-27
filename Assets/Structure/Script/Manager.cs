@@ -25,6 +25,7 @@ public class Manager : MonoBehaviour
     [SerializeField] Transform m_Pillar;
     [SerializeField] Transform m_Wall;
     [SerializeField] Transform m_Door;
+    [SerializeField] Transform m_Aqueduct;
 
     // li'l bit of abstraction here
     class SparseIntMatrix<T> where T : Object
@@ -100,6 +101,7 @@ public class Manager : MonoBehaviour
     SparseIntMatrix<GameObject> m_Pillars = new SparseIntMatrix<GameObject>();
     SparseIntMatrix<GameObject>[] m_Walls = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
     SparseIntMatrix<GameObject>[] m_Doors = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
+    SparseIntMatrix<GameObject>[] m_Aqueducts = new SparseIntMatrix<GameObject>[2] { new SparseIntMatrix<GameObject>(), new SparseIntMatrix<GameObject>() };
 
     // Quests
     struct QuestLinkage
@@ -321,6 +323,8 @@ public class Manager : MonoBehaviour
                 RecalculateWall(x, z, m_Walls[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
                 RecalculateDoor(x, z, m_Doors[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
                 RecalculateDoor(x, z, m_Doors[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
+                RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Horizontal], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x, z - 1), Quaternion.identity);
+                RecalculateAqueduct(x, z, m_Aqueducts[(int)Alignment.Vertical], m_WorldLookup.Lookup(x, z), m_WorldLookup.Lookup(x - 1, z), Quaternion.AngleAxis(90, Vector3.up));
             }
         }
     }
@@ -376,6 +380,16 @@ public class Manager : MonoBehaviour
         hasNoDoorCreator |= !rhs || !rhs.GetDoorCreator();
 
         SetStructure(storage, x, z, m_Door, hasWalls && !hasNoDoorCreator && lhs != rhs, rotation);
+    }
+
+    void RecalculateAqueduct(int x, int z, SparseIntMatrix<GameObject> storage, Structure lhs, Structure rhs, Quaternion rotation)
+    {
+        // An aqueduct exists iff both structures have the WaterRelated flag. It's pretty simple.
+        bool hasAqueduct = true;
+        hasAqueduct &= lhs && lhs.GetWaterRelated();
+        hasAqueduct &= rhs && rhs.GetWaterRelated();
+
+        SetStructure(storage, x, z, m_Aqueduct, hasAqueduct, rotation);
     }
 
     void SetStructure(SparseIntMatrix<GameObject> storage, int x, int z, Transform prefab, bool shouldExist, Quaternion rotation)

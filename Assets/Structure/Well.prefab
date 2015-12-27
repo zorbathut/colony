@@ -419,6 +419,7 @@ MonoBehaviour:
   m_Walled: 0
   m_DoorCreator: 0
   m_Impassable: 0
+  m_WaterRelated: 1
   m_Template: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
@@ -434,6 +435,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_WaterRelated
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

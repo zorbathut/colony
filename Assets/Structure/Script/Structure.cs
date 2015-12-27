@@ -10,6 +10,7 @@ public class Structure : MonoBehaviour
     [SerializeField] bool m_Walled = false;
     [SerializeField] bool m_DoorCreator = false;
     [SerializeField] bool m_Impassable = false;
+    [SerializeField] bool m_WaterRelated = false;
 
     [SerializeField, HideInInspector] Structure m_Template = null;
     [SerializeField, HideInInspector] IntVector2 m_Origin;
@@ -53,6 +54,11 @@ public class Structure : MonoBehaviour
     public bool GetImpassable()
     {
         return m_Impassable;
+    }
+
+    public bool GetWaterRelated()
+    {
+        return m_WaterRelated;
     }
 
     public int GetWidth()
