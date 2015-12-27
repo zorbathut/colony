@@ -39,14 +39,20 @@ public class QuestDistance : Quest
         string result = "";
         for (int i = 0; i < targets.Count; ++i)
         {
-            if (i > 0 && targets.Count > 2)
+            // no elegant way to handle this thanks to the spaces
+            if (i > 0 && targets.Count > 2 && i == targets.Count - 1)
+            {
+                result = result + ", and ";
+            }
+            else if (i > 0 && targets.Count > 2)
             {
                 result = result + ", ";
             }
-            if (i > 0 && i == targets.Count - 1)
+            else if (i > 0 && i == targets.Count - 1)
             {
                 result = result + " and ";
             }
+
             result = result + targets[i].name;
         }
 
