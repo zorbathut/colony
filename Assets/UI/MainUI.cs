@@ -75,7 +75,7 @@ public class MainUI : MonoBehaviour
 
     void RecalculateQuestDisplayPositions()
     {
-        float currentPosition = 0;
+        float currentPosition = -30;
         foreach (QuestDisplay questDisplay in m_QuestDisplays)
         {
             currentPosition -= questDisplay.GetComponent<RectTransform>().sizeDelta.y;
