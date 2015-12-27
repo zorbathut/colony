@@ -78,17 +78,46 @@ public class QuestDistance : Quest
         // Get difference of position
         IntVector2 distanceVec = (one.GetOrigin() - two.GetOrigin());
 
-        // Absolute distance
-        distanceVec.x = Mathf.Abs(distanceVec.x);
-        distanceVec.z = Mathf.Abs(distanceVec.z);
+        // Adjust based on building size and position
+        if (distanceVec.x > 0)
+        {
+            // Subtract second building width, minus one; this adjusts for large buildings
+            distanceVec.x -= two.GetWidth() - 1;
+            
+            // Clamp to zero
+            distanceVec.x = Mathf.Max(distanceVec.x, 0);
+        }
+        else
+        {
+            // Invert
+            distanceVec.x *= -1;
 
-        // Subtract building sizes to deal with large buildings; plus two because our default building size is just the size it's occupying
-        distanceVec.x = distanceVec.x - one.GetWidth() - two.GetWidth() + 2;
-        distanceVec.z = distanceVec.z - one.GetLength() - two.GetLength() + 2;
+            // Subtract first building width, minus one; this adjusts for large buildings
+            distanceVec.x -= one.GetWidth() - 1;
 
-        // Clamp to zero, dealing with large buildings that overlap on an axis
-        distanceVec.x = Mathf.Max(distanceVec.x, 0);
-        distanceVec.z = Mathf.Max(distanceVec.z, 0);
+            // Clamp to zero
+            distanceVec.x = Mathf.Max(distanceVec.x, 0);
+        }
+
+        if (distanceVec.z > 0)
+        {
+            // Subtract second building width, minus one; this adjusts for large buildings
+            distanceVec.z -= two.GetLength() - 1;
+
+            // Clamp to zero
+            distanceVec.z = Mathf.Max(distanceVec.z, 0);
+        }
+        else
+        {
+            // Invert
+            distanceVec.z *= -1;
+
+            // Subtract first building width, minus one; this adjusts for large buildings
+            distanceVec.z -= one.GetLength() - 1;
+
+            // Clamp to zero
+            distanceVec.z = Mathf.Max(distanceVec.z, 0);
+        }
 
         // Calculate manhattan distance
         int distance = distanceVec.x + distanceVec.z;
