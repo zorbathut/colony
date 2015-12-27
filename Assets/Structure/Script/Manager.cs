@@ -342,8 +342,8 @@ public class Manager : MonoBehaviour
     {
         m_minimumRecalculated.x = Mathf.Min(m_minimumRecalculated.x, x);
         m_minimumRecalculated.z = Mathf.Min(m_minimumRecalculated.z, z);
-        m_maximumRecalculated.x = Mathf.Min(m_maximumRecalculated.x, x);
-        m_maximumRecalculated.z = Mathf.Min(m_maximumRecalculated.z, z);
+        m_maximumRecalculated.x = Mathf.Max(m_maximumRecalculated.x, x);
+        m_maximumRecalculated.z = Mathf.Max(m_maximumRecalculated.z, z);
 
         // there is just no clean way to do this
         RecalculatePillar(x, z);
