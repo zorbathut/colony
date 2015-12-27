@@ -93,6 +93,7 @@ GameObject:
   - 4: {fileID: 462974}
   - 33: {fileID: 3300126}
   - 23: {fileID: 2342518}
+  - 64: {fileID: 6491920}
   m_Layer: 0
   m_Name: Mesh45
   m_TagString: Untagged
@@ -877,6 +878,7 @@ GameObject:
   - 4: {fileID: 486666}
   - 33: {fileID: 3340552}
   - 23: {fileID: 2334504}
+  - 64: {fileID: 6499880}
   m_Layer: 0
   m_Name: Mesh46
   m_TagString: Untagged
@@ -4558,6 +4560,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156048}
   m_Mesh: {fileID: 4300014, guid: d222c2594dc8b2e45ba7c43346840863, type: 3}
+--- !u!64 &6491920
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109670}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300088, guid: d222c2594dc8b2e45ba7c43346840863, type: 3}
+--- !u!64 &6499880
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300090, guid: d222c2594dc8b2e45ba7c43346840863, type: 3}
 --- !u!65 &6567856
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4586,6 +4612,7 @@ MonoBehaviour:
   m_Walled: 0
   m_DoorCreator: 0
   m_Impassable: 0
+  m_WaterRelated: 0
   m_Template: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
