@@ -204,4 +204,17 @@ public class Builder : MonoBehaviour
             m_PlaceablesIndex = m_Placeables.Count - 1;
         }
     }
+
+    public bool HasStructure(Structure structure)
+    {
+        foreach (Placeable placeable in GetPlaceables())
+        {
+            if (placeable.template == structure)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

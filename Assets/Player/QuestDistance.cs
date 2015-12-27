@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
+using System.Collections.Generic;
 
 public class QuestDistance : Quest
 {
-    [SerializeField] Structure m_StructureOne;
-    [SerializeField] Structure m_StructureTwo;
+    [SerializeField] Structure m_Structure;
+    [SerializeField] List<Structure> m_Targets;
+
     [SerializeField] int m_Distance;
     enum DistanceComparator
     {
@@ -14,23 +16,60 @@ public class QuestDistance : Quest
     };
     [SerializeField] DistanceComparator m_Comparator;
 
+    List<Structure> GetActiveTargets()
+    {
+        List<Structure> output = new List<Structure>();
+        Builder builder = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<Builder>();
+
+        foreach (Structure structure in m_Targets)
+        {
+            if (builder.HasStructure(structure))
+            {
+                output.Add(structure);
+            }
+        }
+
+        return output;
+    }
+
+    string StringizeActiveTargets()
+    {
+        List<Structure> targets = GetActiveTargets();
+
+        string result = "";
+        for (int i = 0; i < targets.Count; ++i)
+        {
+            if (i > 0 && targets.Count > 2)
+            {
+                result = result + ", ";
+            }
+            if (i > 0 && i == targets.Count - 1)
+            {
+                result = result + " and ";
+            }
+            result = result + targets[i].name;
+        }
+
+        return result;
+    }
+
     public override string GetTextual()
     {
         if (m_Comparator == DistanceComparator.AtMost && m_Distance == 1)
         {
             // Special-case for English
-            return string.Format("Place {0} and {1} adjacent", m_StructureOne.name, m_StructureTwo.name);
+            return string.Format("Place {0} adjacent to {1}", m_Structure.name, StringizeActiveTargets());
         }
         else
         {
-            return string.Format("Place {0} and {1} {2} {3} tiles apart", m_StructureOne.name, m_StructureTwo.name, m_Comparator == DistanceComparator.AtLeast ? "at least" : "at most", m_Distance);
+            return string.Format("Place {0} {2} {3} tiles away from {1}", m_Structure.name, StringizeActiveTargets(), m_Comparator == DistanceComparator.AtLeast ? "at least" : "at most", m_Distance);
         }
     }
 
-    public override bool IsComplete()
+    bool ValidateDistances(Structure lhs, Structure rhs)
     {
-        Structure one = Manager.instance.GetStructureOfType(m_StructureOne);
-        Structure two = Manager.instance.GetStructureOfType(m_StructureTwo);
+        Structure one = Manager.instance.GetStructureOfType(lhs);
+        Structure two = Manager.instance.GetStructureOfType(rhs);
         if (one == null || two == null)
         {
             return false;
@@ -68,5 +107,20 @@ public class QuestDistance : Quest
             // okay sure just go on
             return true;
         }
+    }
+
+    public override bool IsComplete()
+    {
+        List<Structure> targets = GetActiveTargets();
+
+        foreach (Structure target in targets)
+        {
+            if (!ValidateDistances(m_Structure, target))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
