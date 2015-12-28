@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,12 +19,16 @@ public class MainUI : MonoBehaviour
     [SerializeField] FadeoutText m_PopupText;
     [SerializeField] PlaceableDisplay m_PlaceableDisplay;
     [SerializeField] RectTransform m_PlaceableAnchor;
+    [SerializeField] RectTransform m_QuestAnchor;
 
     List<PlaceableDisplay> m_PlaceableDisplays = new List<PlaceableDisplay>();
 
     [SerializeField] QuestDisplay m_QuestDisplay;
 
     List<QuestDisplay> m_QuestDisplays = new List<QuestDisplay>();
+
+    [SerializeField] List<MultiplicativeFader> m_OverlayFaders = new List<MultiplicativeFader>();
+    [SerializeField] Text m_OverlayText;
 
     public virtual void Awake()
     {
@@ -60,7 +65,7 @@ public class MainUI : MonoBehaviour
 
     public QuestDisplay AddQuestDisplay()
     {
-        QuestDisplay display = UIUtil.RectInstantiate(m_QuestDisplay, this.transform);
+        QuestDisplay display = UIUtil.RectInstantiate(m_QuestDisplay, m_QuestAnchor.transform);
         m_QuestDisplays.Add(display);
         RecalculateQuestDisplayPositions();
         return display;
@@ -80,6 +85,15 @@ public class MainUI : MonoBehaviour
         {
             currentPosition -= questDisplay.GetComponent<RectTransform>().sizeDelta.y;
             questDisplay.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, currentPosition);
+        }
+    }
+
+    public void SetTextOverlay(string text, float opacity)
+    {
+        m_OverlayText.text = text;
+        foreach (MultiplicativeFader fader in m_OverlayFaders)
+        {
+            fader.Change(opacity);
         }
     }
 }
