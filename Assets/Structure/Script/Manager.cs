@@ -128,6 +128,14 @@ public class Manager : MonoBehaviour
         s_Manager = this;
     }
 
+    public virtual void Update()
+    {
+        // Do this every frame to update the UI
+        // This is pretty inefficient; we should be doing a lot more caching and on-event updating
+        // But for a game of this scope, the CPU usage is negligable
+        EvaluateQuests();
+    }
+
     /////////////////////////////////////////////
     // COORDINATES
     //
