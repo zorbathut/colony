@@ -22,6 +22,12 @@ public class ScriptText : Script
 
     public override bool Execute()
     {
+        if (ScriptQuestEvaluate.ConsumeDebugOverride())
+        {
+            MainUI.instance.SetTextOverlay(m_Text, 0f);
+            return true;
+        }
+
         switch (m_Phase)
         {
             case Phase.FadeIn:
