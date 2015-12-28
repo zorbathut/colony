@@ -130,8 +130,8 @@ public class QuestDistance : Quest
             distanceVec.z = Mathf.Max(distanceVec.z, 0);
         }
 
-        // Calculate manhattan distance
-        int distance = distanceVec.x + distanceVec.z;
+        // Calculate diagonal-allowed manhattan distance
+        int distance = Mathf.Max(distanceVec.x, distanceVec.z);
 
         if (m_Comparator == DistanceComparator.AtLeast)
         {
