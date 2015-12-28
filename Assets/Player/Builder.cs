@@ -17,6 +17,8 @@ public class Builder : MonoBehaviour
     [SerializeField] Transform m_PlacementCube;
     [SerializeField] Transform m_DestructionCube;
 
+    [SerializeField] AudioClip m_BuildClip;
+
     [SerializeField, HideInInspector] List<Placeable> m_Placeables = new List<Placeable>();
     [SerializeField, HideInInspector] int m_PlaceablesIndex;
 
@@ -93,6 +95,10 @@ public class Builder : MonoBehaviour
             {
                 // Success!
                 --placeable.remaining;
+
+                AudioSource audioSource = GetComponent<AudioSource>();
+                audioSource.clip = m_BuildClip;
+                audioSource.Play();
             }
         }
         

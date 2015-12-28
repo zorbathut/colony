@@ -607,7 +607,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 449028, guid: a82b62058e009ee42b58ec86c9450737, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a82b62058e009ee42b58ec86c9450737, type: 2}
@@ -671,4 +671,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0

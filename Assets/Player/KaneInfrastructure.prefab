@@ -6413,6 +6413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlacementCube: {fileID: 473678}
   m_DestructionCube: {fileID: 491324}
+  m_BuildClip: {fileID: 8300000, guid: 6694bdf1502b6ad44975d9de85ed45f1, type: 3}
   m_Placeables: []
   m_PlaceablesIndex: 0
 --- !u!114 &11434420
