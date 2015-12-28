@@ -6,19 +6,35 @@ public class ScriptText : Script
 {
     [SerializeField, Multiline] string m_Text;
 
-    [SerializeField] float m_FadeIn = 2f;
-    [SerializeField] float m_FadeOut = 1f;
+    float m_Delay = 1f;
+    float m_FadeIn = 2f;
+    float m_FadeOut = 0.5f;
 
     enum Phase
     {
+        Delay,
         FadeIn,
         Wait,
         FadeOut,
         Done,
     };
-    Phase m_Phase = Phase.FadeIn;
+    Phase m_Phase = Phase.Delay;
 
     float m_Opacity = 0f;
+
+    public virtual void Update()
+    {
+        // this is pretty awful because this is run each tick for each Text, but the game's almost done so I'm not gonna worry about it
+        if ((m_Phase == Phase.Wait || (m_Phase == Phase.FadeIn && m_Opacity > 0.25f)) && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetMouseButtonDown(0)))
+        {
+            m_Phase = Phase.FadeOut;
+        }
+
+        if (m_Phase == Phase.Wait && Input.GetMouseButtonDown(0))
+        {
+            m_Phase = Phase.FadeOut;
+        }
+    }
 
     public override bool Execute()
     {
@@ -30,6 +46,14 @@ public class ScriptText : Script
 
         switch (m_Phase)
         {
+            case Phase.Delay:
+                m_Delay -= Time.deltaTime;
+                if (m_Delay <= 0)
+                {
+                    m_Phase = Phase.FadeIn;
+                }
+                return false;
+
             case Phase.FadeIn:
                 m_Opacity = Mathf.Min(m_Opacity + Time.deltaTime / m_FadeIn, 1f);
                 MainUI.instance.SetTextOverlay(m_Text, m_Opacity);
@@ -40,10 +64,7 @@ public class ScriptText : Script
                 return false;
 
             case Phase.Wait:
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-                {
-                    m_Phase = Phase.FadeOut;
-                }
+                // transition handled in Update()
                 return false;
 
             case Phase.FadeOut:

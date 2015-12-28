@@ -30,6 +30,8 @@ public class MainUI : MonoBehaviour
     [SerializeField] List<MultiplicativeFader> m_OverlayFaders = new List<MultiplicativeFader>();
     [SerializeField] Text m_OverlayText;
 
+    float m_TextOverlayOpacity = 0f;
+
     public virtual void Awake()
     {
         Assert.IsNull(s_Manager);
@@ -91,9 +93,15 @@ public class MainUI : MonoBehaviour
     public void SetTextOverlay(string text, float opacity)
     {
         m_OverlayText.text = text;
+        m_TextOverlayOpacity = opacity;
         foreach (MultiplicativeFader fader in m_OverlayFaders)
         {
             fader.Change(opacity);
         }
+    }
+
+    public float GetTextOverlayOpacity()
+    {
+        return m_TextOverlayOpacity;
     }
 }

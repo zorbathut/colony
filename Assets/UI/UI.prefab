@@ -12,7 +12,7 @@ GameObject:
   - 114: {fileID: 11463812}
   - 114: {fileID: 11408080}
   m_Layer: 5
-  m_Name: Enter
+  m_Name: Click
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '- press enter to continue -'
+  m_Text: '- click to continue -'
 --- !u!114 &11472780
 MonoBehaviour:
   m_ObjectHideFlags: 1

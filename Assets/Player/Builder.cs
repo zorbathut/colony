@@ -75,7 +75,11 @@ public class Builder : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Placeable placeable = GetCurrentPlaceable();
-            if (!m_TargetPositionValid)
+            if (MainUI.instance.GetTextOverlayOpacity() > 0.25f)
+            {
+                // no error string, just silently ignore
+            }
+            else if (!m_TargetPositionValid)
             {
                 errorString = "Only the gods can build in the sky.";
             }
