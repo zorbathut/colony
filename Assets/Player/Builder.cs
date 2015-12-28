@@ -30,7 +30,11 @@ public class Builder : MonoBehaviour
         string errorString = null;
 
         // Change index
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (MainUI.instance.GetTextOverlayOpacity() > 0.25f)
+        {
+            // no error string, just silently ignore
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             --m_PlaceablesIndex;
         }
