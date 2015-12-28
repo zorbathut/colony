@@ -128,7 +128,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: ae0bbe9e9b3b6804eb93eaf027a3a7c5, type: 2}
+  - {fileID: 2100000, guid: 1aa15b4b16904864fbe24be9d1fc8bcf, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -223,6 +223,8 @@ MonoBehaviour:
   m_Length: 1
   m_Walled: 0
   m_DoorCreator: 1
+  m_Impassable: 0
+  m_WaterRelated: 0
   m_Template: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
