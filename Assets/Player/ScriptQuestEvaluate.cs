@@ -14,7 +14,7 @@ public class ScriptQuestEvaluate : Script
 
     public virtual void Update()
     {
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             s_debugOverrideNext = true;
         }
