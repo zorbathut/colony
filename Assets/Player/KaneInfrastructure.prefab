@@ -7425,8 +7425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add01831681963b468d4cdb4bd34b9e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Text: Open walls and commerce brought people, eager to find peace and wealth within
-    the growing town.
+  m_Text: 'Open walls and commerce brought people, eager to find peace and wealth
+    within the growing town.
+
+
+    (space to jump)'
 --- !u!114 &11413978
 MonoBehaviour:
   m_ObjectHideFlags: 1
